@@ -81,6 +81,7 @@ void set_visible(sprite_t *sprite)
 {
     sprite->is_visible = 1;
 }
+
 /**
  * @brief rend un sprite invisible
  *
@@ -102,7 +103,6 @@ void set_invisible(sprite_t *sprite)
  * @param v vitesse verticale
  */
 void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v, int visible)
-
 {
     sprite->pos_x = x;
     sprite->pos_y = y;
@@ -238,7 +238,6 @@ void handle_events(SDL_Event *event, world_t *world)
  * \brief La fonction nettoie les textures
  * \param textures les textures
  */
-
 void clean_textures(textures_t *textures)
 {
     clean_texture(textures->background);
@@ -252,7 +251,6 @@ void clean_textures(textures_t *textures)
  * \param screen la surface correspondant à l'écran de jeu
  * \param textures les textures du jeu
  */
-
 void init_textures(SDL_Renderer *renderer, textures_t *textures)
 {
     textures->background = load_image("ressources/space-background.bmp", renderer);
@@ -266,7 +264,6 @@ void init_textures(SDL_Renderer *renderer, textures_t *textures)
  * \param renderer le renderer
  * \param textures les textures du jeu
  */
-
 void apply_background(SDL_Renderer *renderer, textures_t *textures)
 {
     if (textures->background != NULL)
@@ -281,7 +278,6 @@ void apply_background(SDL_Renderer *renderer, textures_t *textures)
  * \param world les données du monde
  * \param textures les textures
  */
-
 void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite)
 {
     if (texture != NULL && sprite->is_visible)
