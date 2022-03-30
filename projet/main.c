@@ -37,7 +37,7 @@
 struct textures_s
 {
     SDL_Texture *background; /*!< Texture liée à l'image du fond de l'écran. */
-    /* A COMPLETER */
+    SDL_Texture *ship;
 };
 
 /**
@@ -70,8 +70,9 @@ void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v)
     sprite->speed_v = v;
 }
 
-void print_sprite(sprite_t *sprite){
-    printf("Position : %dx %dy, taille: %dh, %dw, vitesse: %d",sprite->pos_x,sprite->pos_y, sprite->height, sprite->width, sprite->speed_v);
+void print_sprite(sprite_t *sprite)
+{
+    printf("Position : %dx %dy, taille: %dh, %dw, vitesse: %d\n", sprite->pos_x, sprite->pos_y, sprite->height, sprite->width, sprite->speed_v);
 }
 
 /**
@@ -100,8 +101,7 @@ void init_data(world_t *world)
 
     // on n'est pas à la fin du jeu
     world->gameover = 0;
-    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE, SHIP_SIZE, SHIP_SIZE, 0);
-
+    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0);
 }
 
 /**
@@ -186,8 +186,7 @@ void clean_textures(textures_t *textures)
 void init_textures(SDL_Renderer *renderer, textures_t *textures)
 {
     textures->background = load_image("ressources/space-background.bmp", renderer);
-
-    /* A COMPLETER */
+    textures->ship = load_image("ressources/spaceship.bmp", renderer);
 }
 
 /**
@@ -211,6 +210,14 @@ void apply_background(SDL_Renderer *renderer, textures_t *textures)
  * \param textures les textures
  */
 
+void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite)
+{
+    if (texture != NULL)
+    {
+        apply_texture(texture, renderer, sprite->pos_x, sprite->pos_y);
+    }
+}
+
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textures)
 {
 
@@ -219,7 +226,8 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textur
 
     // application des textures dans le renderer
     apply_background(renderer, textures);
-    /* A COMPLETER */
+
+    apply_sprite(renderer, textures->ship, &world->ship);
 
     // on met à jour l'écran
     update_screen(renderer);
