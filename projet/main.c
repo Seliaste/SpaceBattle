@@ -221,7 +221,7 @@ void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite
 {
     if (texture != NULL)
     {
-        apply_texture(texture, renderer, sprite->pos_x, sprite->pos_y);
+        apply_texture(texture, renderer, sprite->pos_x - sprite->width/2, sprite->pos_y - sprite->height/2);
     }
 }
 
