@@ -53,14 +53,26 @@ typedef struct textures_s textures_t;
 
 
 /**
+ * @brief Struct qui représente un sprite
+ * 
+ */
+struct sprite_s {
+    int pos_x;
+    int pos_y;
+    int height;
+    int width;
+    int speed_v; // vitesse verticale
+};
+
+typedef struct sprite_s sprite_t;
+
+
+/**
  * \brief Représentation du monde du jeu
 */
 
 struct world_s{
-    /*
-      A COMPLETER
-     */
-    
+    sprite_t ship;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
 
 };
@@ -70,8 +82,6 @@ struct world_s{
  */
 
 typedef struct world_s world_t;
-
-
 
 
 
