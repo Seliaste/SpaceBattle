@@ -163,6 +163,9 @@ void handle_events(SDL_Event *event, world_t *world)
         // si une touche est appuyée
         if (event->type == SDL_KEYDOWN)
         {
+            if(event->key.keysym.sym == SDLK_ESCAPE){
+                world->gameover = 1;
+            }
             if (event->key.keysym.sym == SDLK_LEFT)
             {
                 world->ship.pos_x-=10;
