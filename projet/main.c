@@ -32,16 +32,18 @@
 */
 
 #define MISSILE_SIZE 8
-
-
+/**
+ * @brief définit la vitesse d'un ennemi
+ * 
+ */
+#define ENEMY_SPEED 2
 
 /**
  * \brief Représentation pour stocker les textures nécessaires à l'affichage graphique
 */
-
 struct textures_s{
     SDL_Texture* background; /*!< Texture liée à l'image du fond de l'écran. */
-    /* A COMPLETER */
+    SDL_Texture* enemy;
 };
 
 
@@ -50,7 +52,7 @@ struct textures_s{
 */
 
 typedef struct textures_s textures_t;
-
+    
 
 /**
  * @brief Struct qui représente un sprite
@@ -73,6 +75,7 @@ typedef struct sprite_s sprite_t;
 
 struct world_s{
     sprite_t ship;
+    sprite_t enemy;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
 
 };
@@ -95,6 +98,7 @@ void init_data(world_t * world){
     
     //on n'est pas à la fin du jeu
     world->gameover = 0;
+    init_sprite(SCREEN_WIDTH/2,SCREEN_HEIGHT-SHIP_SIZE,SHIP_SIZE,SHIP_SIZE,ENEMY_SPEED);
     
 }
 
@@ -130,7 +134,7 @@ int is_game_over(world_t *world){
  */
 
 void update_data(world_t *world){
-    /* A COMPLETER */
+    world->enemy.pos_y += world->enemy.speed_v;
 }
 
 
@@ -169,7 +173,7 @@ void handle_events(SDL_Event *event,world_t *world){
 
 void clean_textures(textures_t *textures){
     clean_texture(textures->background);
-    /* A COMPLETER */
+    clean_texture(textures->enemy);
 }
 
 
@@ -182,7 +186,7 @@ void clean_textures(textures_t *textures){
 
 void  init_textures(SDL_Renderer *renderer, textures_t *textures){
     textures->background = load_image( "ressources/space-background.bmp",renderer);
-    
+    textures->enemy = load_image("ressources/enemy.bmp",renderer);
     /* A COMPLETER */
 
     
