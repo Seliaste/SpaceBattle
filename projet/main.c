@@ -39,9 +39,10 @@
  * \brief Représentation pour stocker les textures nécessaires à l'affichage graphique
 */
 struct textures_s{
-    SDL_Texture* background; /*!< Texture liée à l'image du fond de l'écran. */
-    SDL_Texture* enemy;
+    SDL_Texture *background; /*!< Texture liée à l'image du fond de l'écran. */
+    SDL_Texture *enemy;
     SDL_Texture *ship;
+    SDL_Texture *missile;
 };
 
 /**
@@ -61,17 +62,34 @@ struct sprite_s
     int height;
     int width;
     int speed_v; // vitesse verticale
+    int is_visible; //définit la visibilité du sprite
 };
 
 typedef struct sprite_s sprite_t;
-
-void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v)
+/**
+ * @brief rend un sprite visible
+ * 
+ * @param sprite 
+ */
+void set_visible(sprite_t* sprite){
+    sprite->is_visible = 1;
+}
+/**
+ * @brief rend un sprite invisible
+ * 
+ * @param sprite 
+ */
+void set_invisible(sprite_t* sprite){
+    sprite->is_visible = 0;
+}
+void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v, int visible)
 {
     sprite->pos_x = x;
     sprite->pos_y = y;
     sprite->width = w;
     sprite->height = h;
     sprite->speed_v = v;
+    sprite->is_visible = visible;
 }
 
 void print_sprite(sprite_t *sprite)
@@ -87,6 +105,7 @@ struct world_s
 {
     sprite_t ship;
     sprite_t enemy;
+    sprite_t missile;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
 };
 
@@ -106,9 +125,12 @@ void init_data(world_t *world)
 
     // on n'est pas à la fin du jeu
     world->gameover = 0;
-    init_sprite(&(world->enemy),SCREEN_WIDTH/2,SCREEN_HEIGHT-SHIP_SIZE,SHIP_SIZE,SHIP_SIZE,ENEMY_SPEED);
-    
-    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0);
+    //initialise un ennemi en haut de l'écran
+    init_sprite(&(world->enemy),SCREEN_WIDTH/2,SHIP_SIZE,SHIP_SIZE,SHIP_SIZE,ENEMY_SPEED,1); 
+    //initialise un vaisseau en bas de l'ecran
+    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0,1); 
+    //initialise un missile positionné sur le vaisseau
+    init_sprite(&(world->missile),SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2,MISSILE_SIZE,MISSILE_SIZE,0,0);
 }
 
 /**
@@ -181,6 +203,7 @@ void clean_textures(textures_t *textures)
 {
     clean_texture(textures->background);
     clean_texture(textures->enemy);
+    clean_texture(textures->missile);
 }
 
 /**
@@ -194,6 +217,7 @@ void init_textures(SDL_Renderer *renderer, textures_t *textures)
     textures->background = load_image("ressources/space-background.bmp", renderer);
     textures->ship = load_image("ressources/spaceship.bmp", renderer);
     textures->enemy = load_image("ressources/enemy.bmp",renderer);
+    textures->missile = load_image("ressources/missile.bmp",renderer);
 }
 
 /**
@@ -219,7 +243,7 @@ void apply_background(SDL_Renderer *renderer, textures_t *textures)
 
 void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite)
 {
-    if (texture != NULL)
+    if (texture != NULL && sprite->is_visible)
     {
         apply_texture(texture, renderer, sprite->pos_x, sprite->pos_y);
     }
@@ -236,6 +260,9 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textur
 
     apply_sprite(renderer, textures->ship, &world->ship);
 
+    apply_sprite(renderer, textures->enemy, &world->enemy);
+
+    apply_sprite(renderer, textures->missile, &world->missile);
     // on met à jour l'écran
     update_screen(renderer);
 }
