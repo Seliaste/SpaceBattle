@@ -65,6 +65,16 @@ struct sprite_s
 
 typedef struct sprite_s sprite_t;
 
+/**
+ * @brief initialise un sprite
+ * 
+ * @param sprite le sprite
+ * @param x position horizontale
+ * @param y position verticale
+ * @param w largeur
+ * @param h hauteur
+ * @param v vitesse verticale
+ */
 void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v)
 {
     sprite->pos_x = x;
@@ -74,6 +84,11 @@ void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v)
     sprite->speed_v = v;
 }
 
+/**
+ * @brief affiche les informations du sprite
+ * 
+ * @param sprite 
+ */
 void print_sprite(sprite_t *sprite)
 {
     printf("Position : %dx %dy, taille: %dh, %dw, vitesse: %d\n", sprite->pos_x, sprite->pos_y, sprite->height, sprite->width, sprite->speed_v);
@@ -240,6 +255,7 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textur
     // application des textures dans le renderer
     apply_background(renderer, textures);
 
+    // application de la texture du vaisseau
     apply_sprite(renderer, textures->ship, &world->ship);
 
     // on met à jour l'écran
