@@ -70,6 +70,10 @@ void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v)
     sprite->speed_v = v;
 }
 
+void print_sprite(sprite_t *sprite){
+    printf("Position : %dx %dy, taille: %dh, %dw, vitesse: %d",sprite->pos_x,sprite->pos_y, sprite->height, sprite->width, sprite->speed_v);
+}
+
 /**
  * \brief Représentation du monde du jeu
  */
