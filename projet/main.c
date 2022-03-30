@@ -31,7 +31,7 @@
 #define MISSILE_SIZE 8
 /**
  * @brief définit la vitesse d'un missile
- * 
+ *
  */
 #define MISSILE_SPEED 10
 /**
@@ -224,9 +224,10 @@ void handle_events(SDL_Event *event, world_t *world)
             {
                 world->ship.pos_x += 10;
             }
-            if (event->key.keysym.sym == SDLK_SPACE){
+            if (event->key.keysym.sym == SDLK_SPACE)
+            {
                 set_visible(&world->missile);
-                world->missile.pos_x = world->ship.pos_x;
+                world->missile.pos_x = world->ship.pos_x; // reset la position du missile sur le vaisseau
                 world->missile.pos_y = world->ship.pos_y;
             }
         }
@@ -241,6 +242,7 @@ void handle_events(SDL_Event *event, world_t *world)
 void clean_textures(textures_t *textures)
 {
     clean_texture(textures->background);
+    clean_texture(textures->ship);
     clean_texture(textures->enemy);
     clean_texture(textures->missile);
 }
