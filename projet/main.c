@@ -163,10 +163,13 @@ void handle_events(SDL_Event *event, world_t *world)
         // si une touche est appuyée
         if (event->type == SDL_KEYDOWN)
         {
-            // si la touche appuyée est 'D'
-            if (event->key.keysym.sym == SDLK_d)
+            if (event->key.keysym.sym == SDLK_LEFT)
             {
-                printf("La touche D est appuyée\n");
+                world->ship.pos_x-=10;
+            }
+            if (event->key.keysym.sym == SDLK_RIGHT)
+            {
+                world->ship.pos_x+=10;
             }
         }
     }
