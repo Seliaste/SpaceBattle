@@ -30,6 +30,11 @@
 
 #define MISSILE_SIZE 8
 /**
+ * @brief définit la vitesse d'un missile
+ * 
+ */
+#define MISSILE_SPEED 10
+/**
  * @brief définit la vitesse d'un ennemi
  *
  */
@@ -150,7 +155,7 @@ void init_data(world_t *world)
     // initialise un vaisseau en bas de l'ecran
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 1);
     // initialise un missile positionné sur le vaisseau
-    init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, 0, 0);
+    init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0);
 }
 
 /**
@@ -182,6 +187,7 @@ int is_game_over(world_t *world)
 void update_data(world_t *world)
 {
     world->enemy.pos_y += world->enemy.speed_v;
+    world->missile.pos_y -= world->missile.speed_v;
 }
 
 /**
@@ -217,6 +223,11 @@ void handle_events(SDL_Event *event, world_t *world)
             if (event->key.keysym.sym == SDLK_RIGHT)
             {
                 world->ship.pos_x += 10;
+            }
+            if (event->key.keysym.sym == SDLK_SPACE){
+                set_visible(&world->missile);
+                world->missile.pos_x = world->ship.pos_x;
+                world->missile.pos_y = world->ship.pos_y;
             }
         }
     }
