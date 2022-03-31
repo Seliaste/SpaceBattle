@@ -106,4 +106,7 @@ void update_data(world_t *world);
  * @param enemy 
  */
 void enemy_limit(world_t* world);
+
+void ship_limit(world_t *world);
+
 #endif

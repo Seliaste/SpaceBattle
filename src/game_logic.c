@@ -52,6 +52,19 @@ void update_data(world_t *world)
 {
     world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
+    ship_limit(world);
+}
+
+void ship_limit(world_t *world)
+{
+    if (world->ship.pos_x - SHIP_SIZE / 2 < 0)
+    {
+        world->ship.pos_x = SHIP_SIZE / 2;
+    }
+    else if (world->ship.pos_x + SHIP_SIZE / 2 > SCREEN_WIDTH)
+    {
+        world->ship.pos_x = SCREEN_WIDTH - SHIP_SIZE / 2;
+    }
 }
 void enemy_limit(world_t* world){
     if (world->enemy.pos_y > SCREEN_HEIGHT+(SHIP_SIZE/2)){
