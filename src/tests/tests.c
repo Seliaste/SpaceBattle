@@ -7,26 +7,27 @@
  */
 
 #include "../game_logic.h"
-void test_init_sprite_param(sprite_t *sprite, int x, int y, int w, int h, int v, int visible){
-    init_sprite(sprite,x,y,w,h,v,visible);
+void test_init_sprite_param(sprite_t *sprite, int x, int y, int w, int h, int v, int visible)
+{
+    init_sprite(sprite, x, y, w, h, v, visible);
     print_sprite(sprite);
-    
 }
-void test_init_sprite(){
+void test_init_sprite()
+{
     world_t world;
     init_data(&world);
-    test_init_sprite_param(&world.missile,500,15,28,440,12,1);
-    test_init_sprite_param(&world.missile,100,10,10,2,4,1);
-    test_init_sprite_param(&world.missile,500,140,280,15,25,1);
-    test_init_sprite_param(&world.missile,0,0,0,0,0,1);
-    test_init_sprite_param(&world.enemy,200,SCREEN_HEIGHT+20,50,28,14,1);
+    test_init_sprite_param(&world.missile, 500, 15, 28, 440, 12, 1);
+    test_init_sprite_param(&world.missile, 100, 10, 10, 2, 4, 1);
+    test_init_sprite_param(&world.missile, 500, 140, 280, 15, 25, 1);
+    test_init_sprite_param(&world.missile, 0, 0, 0, 0, 0, 1);
+    test_init_sprite_param(&world.enemy, 200, SCREEN_HEIGHT + 20, 50, 28, 14, 1);
 }
-void test_ship_limit_param(sprite_t *sprite,world_t *world, int newx)
+void test_ship_limit_param(sprite_t *sprite, world_t *world, int newx)
 {
     sprite->pos_x = newx;
-    printf("Avant ajustement: ship x = %d\n",sprite->pos_x);
+    printf("Avant ajustement: ship x = %d\n", sprite->pos_x);
     ship_limit(world);
-    printf("Après ajustement: ship x = %d\n",sprite->pos_x);
+    printf("Après ajustement: ship x = %d\n", sprite->pos_x);
 }
 
 void test_ship_limit()
@@ -37,22 +38,23 @@ void test_ship_limit()
     test_ship_limit_param(&world.ship, &world, 1000);
 }
 
-void test_enemy_limit_param(sprite_t *sprite,world_t *world, int newy)
+void test_enemy_limit_param(sprite_t *sprite, world_t *world, int newy)
 {
     sprite->pos_y = newy;
-    printf("Avant ajustement: enemy y = %d\n",sprite->pos_y);
+    printf("Avant ajustement: enemy y = %d\n", sprite->pos_y);
     enemy_limit(world);
-    printf("Après ajustement: enemy y = %d\n",sprite->pos_y);
+    printf("Après ajustement: enemy y = %d\n", sprite->pos_y);
 }
 
 void test_enemy_limit()
 {
     world_t world;
     init_data(&world);
-    test_enemy_limit_param(&world.enemy, &world, SCREEN_HEIGHT+42);
+    test_enemy_limit_param(&world.enemy, &world, SCREEN_HEIGHT + 42);
     test_enemy_limit_param(&world.enemy, &world, 500);
 }
-int main (int argc,char* argv[]){
+int main(int argc, char *argv[])
+{
     test_init_sprite();
     test_ship_limit();
     test_enemy_limit();

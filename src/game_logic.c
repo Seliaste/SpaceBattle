@@ -67,8 +67,10 @@ void ship_limit(world_t *world)
         world->ship.pos_x = SCREEN_WIDTH - SHIP_SIZE / 2;
     }
 }
-void enemy_limit(world_t* world){
-    if (world->enemy.pos_y > SCREEN_HEIGHT+(SHIP_SIZE/2)){
-        world->enemy.pos_y =(SHIP_SIZE/2);
+void enemy_limit(world_t *world)
+{
+    if (world->enemy.pos_y > SCREEN_HEIGHT + (SHIP_SIZE / 2))
+    {
+        world->enemy.pos_y = (SHIP_SIZE / 2);
     }
 }
