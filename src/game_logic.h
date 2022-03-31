@@ -100,4 +100,6 @@ int is_game_over(world_t *world);
  */
 void update_data(world_t *world);
 
+void ship_limit(world_t *world);
+
 #endif
