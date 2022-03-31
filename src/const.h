@@ -1,3 +1,6 @@
+#ifndef CONST_H
+#define CONST_H
+
 #define MISSILE_SPEED 10
 /**
  * @brief définit la vitesse d'un ennemi
@@ -33,3 +36,5 @@
  * @brief définit la vitesse d'un missile
  *
  */
+
+#endif
