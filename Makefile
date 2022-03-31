@@ -2,13 +2,13 @@ CFLAGS = -O3 `sdl2-config --cflags`
 LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lm
 
 INC = sdl2-light.h
-SRC = main.c sdl2-light.c src/tests/tests.c src/game_logic.c src/graphics.c
+SRC = main.c sdl2-light.c src/game_logic.c src/graphics.c
 OBJ = $(SRC:%.c=%.o)
 
 PROG = spacebattle
 
 %.o: %.c $(INC)
-	gcc $(CFLAGS) -c $<
+	gcc $(CFLAGS) -c $< -o $@
 
 spacebattle: $(OBJ)
 	gcc $(CFLAGS) $(OBJ) $(LDFLAGS) -o $@
