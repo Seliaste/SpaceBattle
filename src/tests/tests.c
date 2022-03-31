@@ -36,7 +36,24 @@ void test_ship_limit()
     test_ship_limit_param(&world.ship, &world, -10);
     test_ship_limit_param(&world.ship, &world, 1000);
 }
+
+void test_enemy_limit_param(sprite_t *sprite,world_t *world, int newy)
+{
+    sprite->pos_y = newy;
+    printf("Avant ajustement: enemy y = %d\n",sprite->pos_y);
+    enemy_limit(world);
+    printf("Après ajustement: enemy y = %d\n",sprite->pos_y);
+}
+
+void test_enemy_limit()
+{
+    world_t world;
+    init_data(&world);
+    test_enemy_limit_param(&world.enemy, &world, SCREEN_HEIGHT+42);
+    test_enemy_limit_param(&world.enemy, &world, 500);
+}
 int main (int argc,char* argv[]){
     test_init_sprite();
     test_ship_limit();
+    test_enemy_limit();
 }

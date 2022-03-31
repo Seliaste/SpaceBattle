@@ -53,6 +53,7 @@ void update_data(world_t *world)
     world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
     ship_limit(world);
+    enemy_limit(world);
 }
 
 void ship_limit(world_t *world)
