@@ -46,6 +46,44 @@ void init(SDL_Window **window, SDL_Renderer **renderer, textures_t *textures, wo
  *  \brief programme principal qui implémente la boucle du jeu
  */
 
+void handle_events(SDL_Event *event, world_t *world)
+{
+    Uint8 *keystates;
+    while (SDL_PollEvent(event))
+    {
+
+        // Si l'utilisateur a cliqué sur le X de la fenêtre
+        if (event->type == SDL_QUIT)
+        {
+            // On indique la fin du jeu
+            world->gameover = 1;
+        }
+
+        // si une touche est appuyée
+        if (event->type == SDL_KEYDOWN)
+        {
+            if (event->key.keysym.sym == SDLK_ESCAPE)
+            {
+                world->gameover = 1;
+            }
+            if (event->key.keysym.sym == SDLK_LEFT)
+            {
+                world->ship.pos_x -= 10;
+            }
+            if (event->key.keysym.sym == SDLK_RIGHT)
+            {
+                world->ship.pos_x += 10;
+            }
+            if (event->key.keysym.sym == SDLK_SPACE)
+            {
+                set_visible(&world->missile);
+                world->missile.pos_x = world->ship.pos_x; // reset la position du missile sur le vaisseau
+                world->missile.pos_y = world->ship.pos_y;
+            }
+        }
+    }
+}
+
 int main(int argc, char *args[])
 {
     SDL_Event event;

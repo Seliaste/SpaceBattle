@@ -8,8 +8,8 @@
 #ifndef GAME_LOGIC_H
 #define GAME_LOGIC_H
 
-#include "../sdl2-light.h"
 #include "const.h"
+#include <stdio.h>
 
 /**
  * @brief Struct qui représente un sprite
@@ -99,13 +99,5 @@ int is_game_over(world_t *world);
  * \param world les données du monde
  */
 void update_data(world_t *world);
-
-/**
- * \brief La fonction gère les évènements ayant eu lieu et qui n'ont pas encore été traités
- * \param event paramètre qui contient les événements
- * \param world les données du monde
- */
-
-void handle_events(SDL_Event *event, world_t *world);
 
 #endif
