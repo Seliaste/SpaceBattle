@@ -63,3 +63,5 @@ latex/
 spacebattle
 
 .vscode
+
+tests
