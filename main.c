@@ -7,6 +7,8 @@
  */
 
 #include "sdl2-light.h"
+#include "src/graphics.h"
+#include "src/game_logic.h"
 
 /**
  * \brief Largeur de l'écran de jeu
