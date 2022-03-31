@@ -25,6 +25,6 @@ doc: $(PROG)
 	make -C latex
 
 clean:
-	rm -f *~ *.o $(PROG) $(PROGTEST)
+	rm -f *~ $(OBJ) $(OBJTEST) $(PROG) $(PROGTEST)
 	rm -rf latex html
 

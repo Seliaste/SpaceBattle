@@ -103,7 +103,6 @@ void update_data(world_t *world);
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse
  * 
  * @param world 
- * @param enemy 
  */
 void enemy_limit(world_t* world);
 
