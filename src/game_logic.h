@@ -106,6 +106,11 @@ void update_data(world_t *world);
  */
 void enemy_limit(world_t* world);
 
+/**
+ * @brief replace le vaisseau s'il dépasse la limite
+ * 
+ * @param world 
+ */
 void ship_limit(world_t *world);
 
 #endif
