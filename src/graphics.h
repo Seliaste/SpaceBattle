@@ -1,3 +1,14 @@
+/**
+ * @file graphics.h
+ * @author Aéna ARIA (aena.aria2@etu.univ-lorraine.fr)
+ * @brief Module graphique du projet
+ * @version 1
+ * @date 2022-03-31
+ */
+
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
+
 #include "const.h"
 #include "../sdl2-light.h"
 #include "game_logic.h"
@@ -44,3 +55,5 @@ void apply_background(SDL_Renderer *renderer, textures_t *textures);
 void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite);
 
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textures);
+
+#endif

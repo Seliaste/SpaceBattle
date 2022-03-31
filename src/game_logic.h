@@ -5,8 +5,26 @@
  * @copyright Copyright (c) 2022
  *
  */
+#ifndef GAME_LOGIC_H
+#define GAME_LOGIC_H
+
 #include "../sdl2-light.h"
 #include "const.h"
+
+/**
+ * @brief Struct qui représente un sprite
+ */
+struct sprite_s
+{
+    int pos_x;
+    int pos_y;
+    int height;
+    int width;
+    int speed_v;    // vitesse verticale
+    int is_visible; // définit la visibilité du sprite
+};
+
+typedef struct sprite_s sprite_t;
 
 /**
  * \brief Représentation du monde du jeu
@@ -23,21 +41,6 @@ struct world_s
  * \brief Type qui correspond aux données du monde
  */
 typedef struct world_s world_t;
-
-/**
- * @brief Struct qui représente un sprite
- */
-struct sprite_s
-{
-    int pos_x;
-    int pos_y;
-    int height;
-    int width;
-    int speed_v;    // vitesse verticale
-    int is_visible; // définit la visibilité du sprite
-};
-
-typedef struct sprite_s sprite_t;
 
 /**
  * @brief rend un sprite visible
@@ -104,3 +107,5 @@ void update_data(world_t *world);
  */
 
 void handle_events(SDL_Event *event, world_t *world);
+
+#endif
