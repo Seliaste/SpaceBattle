@@ -74,7 +74,7 @@ void handle_events(SDL_Event *event, world_t *world)
             {
                 world->ship.pos_x += MOVING_STEP;
             }
-            if (event->key.keysym.sym == SDLK_SPACE)
+            if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible)
             {
                 set_visible(&world->missile);
                 world->missile.pos_x = world->ship.pos_x; // reset la position du missile sur le vaisseau

@@ -58,6 +58,15 @@ void set_visible(sprite_t *sprite);
 void set_invisible(sprite_t *sprite);
 
 /**
+ * @brief Cache le sprite, et réinitialise ses valeurs
+ * 
+ * @param sprite 
+ */
+void despawn_sprite(sprite_t *sprite);
+
+void respawn_sprite(sprite_t *sprite, int x, int y);
+
+/**
  * @brief initialise un sprite
  *
  * @param sprite le sprite

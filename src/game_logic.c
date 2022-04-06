@@ -10,6 +10,20 @@ void set_invisible(sprite_t *sprite)
     sprite->is_visible = 0;
 }
 
+void despawn_sprite(sprite_t *sprite)
+{
+    set_invisible(sprite);
+    sprite->pos_x = -500;
+    sprite->pos_y = -500;
+}
+
+void respawn_sprite(sprite_t *sprite, int x, int y)
+{
+    sprite->pos_x = x;
+    sprite->pos_y = y;
+    set_visible(sprite);
+}
+
 void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v, int visible)
 {
     sprite->pos_x = x;
@@ -54,6 +68,8 @@ void update_data(world_t *world)
     world->missile.pos_y -= world->missile.speed_v;
     ship_limit(world);
     enemy_limit(world);
+    handle_sprites_collision(&world->ship, &world->enemy);
+    handle_sprites_collision(&world->enemy, &world->missile);
 }
 
 void ship_limit(world_t *world)
@@ -83,8 +99,9 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2)
 
 void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2)
 {
-    if(sprite_collide(sp1,sp2) && sp1->is_visible && sp2->is_visible){
-        sp1->speed_v=0;
-        sp2->speed_v=0;
+    if (sprite_collide(sp1, sp2) && sp1->is_visible && sp2->is_visible)
+    {
+        despawn_sprite(sp1);
+        despawn_sprite(sp2);
     }
 }
