@@ -77,6 +77,8 @@ int is_game_over(world_t *world)
 void update_enemies(world_t* world)
 {
     for (int i=0;i<NB_ENEMIES;i++){
+        handle_sprites_collision(&world->enemies[i],&world->ship);
+        handle_sprites_collision(&world->enemies[i],&world->missile);
         world->enemies[i].pos_y+= world->enemies[i].speed_v;
         if (world->enemies[i].pos_y>SCREEN_HEIGHT+SHIP_SIZE/2){
             world->enemies_passed+=1;
@@ -88,12 +90,12 @@ void update_enemies(world_t* world)
 }
 void update_data(world_t *world)
 {
-    world->enemy.pos_y += world->enemy.speed_v;
+    // world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
     ship_limit(world);
-    enemy_limit(world);
-    handle_sprites_collision(&world->ship, &world->enemy);
-    handle_sprites_collision(&world->enemy, &world->missile);
+    // enemy_limit(world);
+    // handle_sprites_collision(&world->ship, &world->enemy);
+    // handle_sprites_collision(&world->enemy, &world->missile);
     update_enemies(world);
 }
 
