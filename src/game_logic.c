@@ -57,6 +57,11 @@ void clean_data(world_t *world)
     /* utile uniquement si vous avez fait de l'allocation dynamique (malloc); la fonction ici doit permettre de libérer la mémoire (free) */
 }
 
+void init_enemies(world_t *world)
+{
+    
+}
+
 int is_game_over(world_t *world)
 {
     return world->gameover;

@@ -11,6 +11,8 @@
 #include "const.h"
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
+#include <stdlib.h>
 
 /**
  * @brief Struct qui représente un sprite
@@ -32,6 +34,7 @@ typedef struct sprite_s sprite_t;
  */
 struct world_s
 {
+    sprite_t enemies[NB_ENEMIES];
     sprite_t ship;
     sprite_t enemy;
     sprite_t missile;
@@ -97,6 +100,8 @@ void init_data(world_t *world);
  */
 void clean_data(world_t *world);
 
+void init_enemies(world_t *world);
+
 /**
  * \brief La fonction indique si le jeu est fini en fonction des données du monde
  * \param world les données du monde
@@ -139,5 +144,7 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2);
  * @param sp2 second sprite
  */
 void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
+
+
 
 #endif
