@@ -66,7 +66,12 @@ int is_game_over(world_t *world)
 {
     return world->gameover;
 }
-
+void update_enemies(world_t* world)
+{
+    for (int i=0;i<NB_ENEMIES;i++){
+        world->enemies[i].pos_y+= world->enemies[i].speed_v; 
+    }
+}
 void update_data(world_t *world)
 {
     world->enemy.pos_y += world->enemy.speed_v;
@@ -75,6 +80,7 @@ void update_data(world_t *world)
     enemy_limit(world);
     handle_sprites_collision(&world->ship, &world->enemy);
     handle_sprites_collision(&world->enemy, &world->missile);
+    update_enemies(world);
 }
 
 void ship_limit(world_t *world)

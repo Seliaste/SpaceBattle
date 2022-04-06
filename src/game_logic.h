@@ -113,6 +113,15 @@ int is_game_over(world_t *world);
  * \brief La fonction met à jour les données en tenant compte de la physique du monde
  * \param world les données du monde
  */
+
+
+/**
+ * @brief La fonction met a jour la position des ennemis
+ * 
+ * @param world 
+ */
+void update_enemies(world_t* world);
+
 void update_data(world_t *world);
 /**
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse

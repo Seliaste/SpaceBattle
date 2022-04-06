@@ -47,6 +47,14 @@ void init_textures(SDL_Renderer *renderer, textures_t *textures);
 void apply_background(SDL_Renderer *renderer, textures_t *textures);
 
 /**
+ * @brief La fonction applique la texture d'ennemi a tous les sprites ennemis
+ * 
+ * @param renderer 
+ * @param world 
+ * @param textures 
+ */
+void apply_enemies(SDL_Renderer *renderer, world_t *world, textures_t *textures);
+/**
  * \brief La fonction rafraichit l'écran en fonction de l'état des données du monde
  * \param renderer la surface de l'écran de jeu
  * \param world les données du monde
