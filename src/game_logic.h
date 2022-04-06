@@ -39,6 +39,7 @@ struct world_s
     sprite_t enemy;
     sprite_t missile;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
+    int enemies_passed;
 };
 
 /**
