@@ -75,7 +75,16 @@ void enemy_limit(world_t *world)
     }
 }
 
-int sprite_collide(sprite_t *sp1, sprite_t *sp2){
-    int dist = sqrt(pow(sp2->pos_x-sp1->pos_x,2)+pow(sp2->pos_y-sp1->pos_y,2)); // formule de la distance dans un plan
-    return (sp1->height+sp2->height)/2 > dist;
+int sprite_collide(sprite_t *sp1, sprite_t *sp2)
+{
+    int dist = sqrt(pow(sp2->pos_x - sp1->pos_x, 2) + pow(sp2->pos_y - sp1->pos_y, 2)); // formule de la distance dans un plan
+    return (sp1->height + sp2->height) / 2 > dist;
+}
+
+void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2)
+{
+    if(sprite_collide(sp1,sp2) && sp1->is_visible && sp2->is_visible){
+        sp1->speed_v=0;
+        sp2->speed_v=0;
+    }
 }

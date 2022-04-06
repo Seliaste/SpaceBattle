@@ -123,5 +123,12 @@ void ship_limit(world_t *world);
  */
 int sprite_collide(sprite_t *sp1, sprite_t *sp2);
 
+/**
+ * @brief prend en charge les collisions
+ * 
+ * @param sp1 premier sprite
+ * @param sp2 second sprite
+ */
+void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
 
 #endif
