@@ -10,6 +10,7 @@
 
 #include "const.h"
 #include <stdio.h>
+#include <math.h>
 
 /**
  * @brief Struct qui représente un sprite
@@ -112,5 +113,15 @@ void enemy_limit(world_t* world);
  * @param world 
  */
 void ship_limit(world_t *world);
+
+/**
+ * @brief Vérifie si sp1 est en collision avec sp2 selon un radius type cercle
+ * 
+ * @param sp1 sprite numéro 1
+ * @param sp2 sprite numéro 2
+ * @return 1 si collision, sinon 0
+ */
+int sprite_collide(sprite_t *sp1, sprite_t *sp2);
+
 
 #endif

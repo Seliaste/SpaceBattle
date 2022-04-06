@@ -74,3 +74,8 @@ void enemy_limit(world_t *world)
         world->enemy.pos_y = (SHIP_SIZE / 2);
     }
 }
+
+int sprite_collide(sprite_t *sp1, sprite_t *sp2){
+    int dist = sqrt(pow(sp2->pos_x-sp1->pos_x,2)+pow(sp2->pos_y-sp1->pos_y,2)); // formule de la distance dans un plan
+    return (sp1->height+sp2->height)/2 > dist;
+}
