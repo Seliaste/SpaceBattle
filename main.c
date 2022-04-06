@@ -68,11 +68,11 @@ void handle_events(SDL_Event *event, world_t *world)
             }
             if (event->key.keysym.sym == SDLK_LEFT)
             {
-                world->ship.pos_x -= 10;
+                world->ship.pos_x -= MOVING_STEP;
             }
             if (event->key.keysym.sym == SDLK_RIGHT)
             {
-                world->ship.pos_x += 10;
+                world->ship.pos_x += MOVING_STEP;
             }
             if (event->key.keysym.sym == SDLK_SPACE)
             {

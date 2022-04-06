@@ -1,12 +1,18 @@
 #ifndef CONST_H
 #define CONST_H
 
+/**
+ * @brief définit le déplacement lateral d'un vaisseau
+ * 
+ */
+#define MOVING_STEP 10
+
 #define MISSILE_SPEED 10
 /**
  * @brief définit la vitesse d'un ennemi
  *
  */
-#define ENEMY_SPEED 2
+#define ENEMY_SPEED 10
 
 /**
  * \brief Représentation pour stocker les textures nécessaires à l'affichage graphique
