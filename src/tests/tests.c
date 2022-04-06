@@ -73,6 +73,7 @@ void test_collision()
 
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
     test_init_sprite();
     test_ship_limit();
     test_enemy_limit();

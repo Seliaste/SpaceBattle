@@ -1,5 +1,10 @@
 #include "game_logic.h"
 
+int generate_number(int a, int b)
+{
+    return rand() % (b - a) + a;
+}
+
 void set_visible(sprite_t *sprite)
 {
     sprite->is_visible = 1;
@@ -44,12 +49,11 @@ void init_data(world_t *world)
 
     // on n'est pas à la fin du jeu
     world->gameover = 0;
-    // initialise un ennemi en haut de l'écran
-    init_sprite(&(world->enemy), SCREEN_WIDTH / 2, SHIP_SIZE, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 1);
     // initialise un vaisseau en bas de l'ecran
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 1);
     // initialise un missile positionné sur le vaisseau
     init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0);
+    init_enemies(world);
 }
 
 void clean_data(world_t *world)
@@ -59,7 +63,10 @@ void clean_data(world_t *world)
 
 void init_enemies(world_t *world)
 {
-    
+    for (int i = 0; i < NB_ENEMIES; i++)
+    {
+        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - i * VERTICAL_DIST, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 1);
+    }
 }
 
 int is_game_over(world_t *world)
