@@ -46,6 +46,8 @@ struct world_s
  */
 typedef struct world_s world_t;
 
+int generate_number(int a, int b);
+
 /**
  * @brief rend un sprite visible
  *
