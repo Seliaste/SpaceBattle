@@ -1,26 +1,28 @@
 #include "graphics.h"
 
-void clean_textures(textures_t *textures)
+void clean_resources(resources_t *resources)
 {
-    clean_texture(textures->background);
-    clean_texture(textures->ship);
-    clean_texture(textures->enemy);
-    clean_texture(textures->missile);
+    clean_texture(resources->background);
+    clean_texture(resources->ship);
+    clean_texture(resources->enemy);
+    clean_texture(resources->missile);
+    clean_font(resources->font);
 }
 
-void init_textures(SDL_Renderer *renderer, textures_t *textures)
+void init_resources(SDL_Renderer *renderer, resources_t *resources)
 {
-    textures->background = load_image("ressources/space-background.bmp", renderer);
-    textures->ship = load_image("ressources/spaceship.bmp", renderer);
-    textures->enemy = load_image("ressources/enemy.bmp", renderer);
-    textures->missile = load_image("ressources/missile.bmp", renderer);
+    resources->background = load_image("ressources/space-background.bmp", renderer);
+    resources->ship = load_image("ressources/spaceship.bmp", renderer);
+    resources->enemy = load_image("ressources/enemy.bmp", renderer);
+    resources->missile = load_image("ressources/missile.bmp", renderer);
+    resources->font = load_font("ressources/edosz.ttf",200);
 }
 
-void apply_background(SDL_Renderer *renderer, textures_t *textures)
+void apply_background(SDL_Renderer *renderer, resources_t *resources)
 {
-    if (textures->background != NULL)
+    if (resources->background != NULL)
     {
-        apply_texture(textures->background, renderer, 0, 0);
+        apply_texture(resources->background, renderer, 0, 0);
     }
 }
 
@@ -31,28 +33,31 @@ void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite
         apply_texture(texture, renderer, sprite->pos_x - sprite->width / 2, sprite->pos_y - sprite->height / 2);
     }
 }
-void apply_enemies(SDL_Renderer *renderer, world_t *world, textures_t *textures)
+void apply_enemies(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
     for (int i = 0;i<NB_ENEMIES;i++){
-         apply_sprite(renderer, textures->enemy, &world->enemies[i]);
+         apply_sprite(renderer, resources->enemy, &world->enemies[i]);
     }
 }
-void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textures)
+void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
 
     // on vide le renderer
     clear_renderer(renderer);
 
-    // application des textures dans le renderer
-    apply_background(renderer, textures);
+    // application des resources dans le renderer
+    apply_background(renderer, resources);
 
     // application de la texture du vaisseau
-    apply_sprite(renderer, textures->ship, &world->ship);
+    apply_sprite(renderer, resources->ship, &world->ship);
 
-    apply_sprite(renderer, textures->enemy, &world->enemy);
+    apply_sprite(renderer, resources->enemy, &world->enemy);
 
-    apply_sprite(renderer, textures->missile, &world->missile);
+    apply_sprite(renderer, resources->missile, &world->missile);
     // on met à jour l'écran
-    apply_enemies(renderer,world,textures);
+    apply_enemies(renderer,world,resources);
+
+    apply_text(renderer,0,0,100,40,"Score :",resources->font);
+
     update_screen(renderer);
 }
