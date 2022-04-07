@@ -39,6 +39,8 @@ struct world_s
     sprite_t enemy;
     sprite_t missile;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
+    int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abbatu tous les ennemis, 3= détruit et pas abattu tous les ennemis
+    int score;
     int enemies_passed;
 };
 
@@ -157,6 +159,11 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2);
  */
 void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
 
-
+/**
+ * @brief calcule le score à partir des données du monde
+ * 
+ * @param world données du monde
+ */
+void compute_game(world_t *world);
 
 #endif
