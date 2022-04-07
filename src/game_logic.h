@@ -42,6 +42,8 @@ struct world_s
     int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abbatu tous les ennemis, 3= détruit et pas abattu tous les ennemis
     int score;
     int enemies_passed;
+    int enemies_destroyed;
+    int exit_time;
 };
 
 /**
@@ -156,8 +158,10 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2);
  * 
  * @param sp1 premier sprite
  * @param sp2 second sprite
+ * 
+ * @return has collision happened
  */
-void handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
+int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
 
 /**
  * @brief calcule le score à partir des données du monde
