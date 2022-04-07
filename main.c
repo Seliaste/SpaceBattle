@@ -6,7 +6,7 @@
  * \date 18 mars 2020
  */
 
-#include "sdl2-light.h"
+
 #include "src/graphics.h"
 #include "src/game_logic.h"
 
@@ -35,11 +35,12 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, textures_t *textures, wor
  * \param wordl le monde
  */
 
-void init(SDL_Window **window, SDL_Renderer **renderer, textures_t *textures, world_t *world)
+void init(SDL_Window **window, SDL_Renderer **renderer, textures_t *textures, world_t *world, TTF_Font* font)
 {
     init_sdl(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
     init_data(world);
     init_textures(*renderer, textures);
+    init_ttf(font);
 }
 
 /**

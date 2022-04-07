@@ -18,8 +18,6 @@ void set_invisible(sprite_t *sprite)
 void despawn_sprite(sprite_t *sprite)
 {
     set_invisible(sprite);
-    sprite->pos_x = -500;
-    sprite->pos_y = -500;
 }
 
 void respawn_sprite(sprite_t *sprite, int x, int y)
@@ -87,7 +85,7 @@ void update_enemies(world_t* world)
             world->score += 1;
         }
         world->enemies[i].pos_y+= world->enemies[i].speed_v;
-        if (world->enemies[i].pos_y>SCREEN_HEIGHT+SHIP_SIZE/2){
+        if (world->enemies[i].pos_y>SCREEN_HEIGHT+SHIP_SIZE/2 && world->enemies[i].is_visible){
             world->enemies_passed+=1;
             world->enemies[i].speed_v = 0;
             despawn_sprite(&world->enemies[i]);

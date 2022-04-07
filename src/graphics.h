@@ -12,12 +12,15 @@
 #include "const.h"
 #include "../sdl2-light.h"
 #include "game_logic.h"
+#include "sdl2-ttf-light.h"
+
 struct textures_s
 {
     SDL_Texture *background; /*!< Texture liée à l'image du fond de l'écran. */
     SDL_Texture *enemy;
     SDL_Texture *ship;
     SDL_Texture *missile;
+    TTF_Font *unautretruc;
 };
 
 /**
@@ -48,10 +51,10 @@ void apply_background(SDL_Renderer *renderer, textures_t *textures);
 
 /**
  * @brief La fonction applique la texture d'ennemi a tous les sprites ennemis
- * 
- * @param renderer 
- * @param world 
- * @param textures 
+ *
+ * @param renderer
+ * @param world
+ * @param textures
  */
 void apply_enemies(SDL_Renderer *renderer, world_t *world, textures_t *textures);
 /**
