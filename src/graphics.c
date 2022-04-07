@@ -31,7 +31,12 @@ void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite
         apply_texture(texture, renderer, sprite->pos_x - sprite->width / 2, sprite->pos_y - sprite->height / 2);
     }
 }
-
+void apply_enemies(SDL_Renderer *renderer, world_t *world, textures_t *textures)
+{
+    for (int i = 0;i<NB_ENEMIES;i++){
+         apply_sprite(renderer, textures->enemy, &world->enemies[i]);
+    }
+}
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textures)
 {
 
@@ -48,5 +53,6 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, textures_t *textur
 
     apply_sprite(renderer, textures->missile, &world->missile);
     // on met à jour l'écran
+    apply_enemies(renderer,world,textures);
     update_screen(renderer);
 }

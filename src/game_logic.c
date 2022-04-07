@@ -49,6 +49,7 @@ void init_data(world_t *world)
 
     // on n'est pas à la fin du jeu
     world->gameover = 0;
+    world->enemies_passed = 0;
     // initialise un vaisseau en bas de l'ecran
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 1);
     // initialise un missile positionné sur le vaisseau
@@ -73,15 +74,29 @@ int is_game_over(world_t *world)
 {
     return world->gameover;
 }
-
+void update_enemies(world_t* world)
+{
+    for (int i=0;i<NB_ENEMIES;i++){
+        handle_sprites_collision(&world->enemies[i],&world->ship);
+        handle_sprites_collision(&world->enemies[i],&world->missile);
+        world->enemies[i].pos_y+= world->enemies[i].speed_v;
+        if (world->enemies[i].pos_y>SCREEN_HEIGHT+SHIP_SIZE/2){
+            world->enemies_passed+=1;
+            world->enemies[i].speed_v = 0;
+            despawn_sprite(&world->enemies[i]);
+            printf("%d ennemis sont sortis\n",world->enemies_passed);
+        } 
+    }
+}
 void update_data(world_t *world)
 {
-    world->enemy.pos_y += world->enemy.speed_v;
+    // world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
     ship_limit(world);
-    enemy_limit(world);
-    handle_sprites_collision(&world->ship, &world->enemy);
-    handle_sprites_collision(&world->enemy, &world->missile);
+    // enemy_limit(world);
+    // handle_sprites_collision(&world->ship, &world->enemy);
+    // handle_sprites_collision(&world->enemy, &world->missile);
+    update_enemies(world);
 }
 
 void ship_limit(world_t *world)

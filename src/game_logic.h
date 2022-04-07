@@ -41,6 +41,7 @@ struct world_s
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
     int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abbatu tous les ennemis, 3= détruit et pas abattu tous les ennemis
     int score;
+    int enemies_passed;
 };
 
 /**
@@ -117,6 +118,15 @@ int is_game_over(world_t *world);
  * \brief La fonction met à jour les données en tenant compte de la physique du monde
  * \param world les données du monde
  */
+
+
+/**
+ * @brief La fonction met a jour la position des ennemis
+ * 
+ * @param world 
+ */
+void update_enemies(world_t* world);
+
 void update_data(world_t *world);
 /**
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse
