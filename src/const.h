@@ -5,7 +5,7 @@
  * @brief définit le déplacement lateral d'un vaisseau
  * 
  */
-#define MOVING_STEP 10
+#define MOVING_STEP 30
 
 #define MISSILE_SPEED 10
 /**

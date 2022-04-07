@@ -36,7 +36,7 @@ struct world_s
 {
     sprite_t enemies[NB_ENEMIES];
     sprite_t ship;
-    sprite_t enemy;
+    // sprite_t enemy;
     sprite_t missile;
     int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
     int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abbatu tous les ennemis, 3= détruit et pas abattu tous les ennemis
