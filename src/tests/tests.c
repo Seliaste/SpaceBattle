@@ -46,13 +46,13 @@ void test_enemy_limit_param(sprite_t *sprite, world_t *world, int newy)
     printf("Après ajustement: enemy y = %d\n", sprite->pos_y);
 }
 
-void test_enemy_limit()
-{
-    world_t world;
-    init_data(&world);
-    test_enemy_limit_param(&world.enemy, &world, SCREEN_HEIGHT + 42);
-    test_enemy_limit_param(&world.enemy, &world, 500);
-}
+// void test_enemy_limit()
+// {
+//     world_t world;
+//     init_data(&world);
+//     test_enemy_limit_param(&world.enemy, &world, SCREEN_HEIGHT + 42);
+//     test_enemy_limit_param(&world.enemy, &world, 500);
+// }
 
 void test_collision_param(world_t* world, int x1, int y1, int y2, int x2){
     world->ship.pos_x = x1;
@@ -76,6 +76,6 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     test_init_sprite();
     test_ship_limit();
-    test_enemy_limit();
+    // test_enemy_limit();
     test_collision();
 }
