@@ -20,7 +20,7 @@ void test_init_sprite()
     test_init_sprite_param(&world.missile, 100, 10, 10, 2, 4, 1);
     test_init_sprite_param(&world.missile, 500, 140, 280, 15, 25, 1);
     test_init_sprite_param(&world.missile, 0, 0, 0, 0, 0, 1);
-    test_init_sprite_param(&world.enemy, 200, SCREEN_HEIGHT + 20, 50, 28, 14, 1);
+    // test_init_sprite_param(&world.enemy, 200, SCREEN_HEIGHT + 20, 50, 28, 14, 1);
 }
 void test_ship_limit_param(sprite_t *sprite, world_t *world, int newx)
 {
