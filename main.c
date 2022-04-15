@@ -27,6 +27,30 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
     clean_sdl(renderer, window);
 }
 
+void audioCallback(void *udata, Uint8 *stream, int len){
+    
+}
+
+int audio_Init(SDL_AudioSpec *audio)
+{
+    // Définition des propriétés audio
+    audio->freq = 44100;
+    audio->format = AUDIO_S16;
+    audio->channels = 2;
+    audio->samples = 1024;
+    audio->callback = audioCallback;
+    audio->userdata = NULL;
+
+    // Initialisation de la couche audio
+    if (SDL_OpenAudio(audio, NULL) < 0)
+    {
+        fprintf(stderr, "Erreur d'ouverture audio: %s\n", SDL_GetError());
+        return (-1);
+    }
+
+    return 0;
+}
+
 /**
  * \brief fonction qui initialise le jeu: initialisation de la partie graphique (SDL), chargement des resources, initialisation des données
  * \param window la fenêtre du jeu
@@ -34,8 +58,7 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
  * \param resources les resources
  * \param wordl le monde
  */
-
-void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world)
+void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world, SDL_AudioSpec *audio)
 {
     init_sdl(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
     init_data(world);
@@ -93,9 +116,10 @@ int main(int argc, char *args[])
     resources_t resources;
     SDL_Renderer *renderer;
     SDL_Window *window;
+    SDL_AudioSpec audio;
     srand(time(NULL));
     // initialisation du jeu
-    init(&window, &renderer, &resources, &world);
+    init(&window, &renderer, &resources, &world, &audio);
 
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
