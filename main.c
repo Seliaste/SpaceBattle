@@ -93,11 +93,11 @@ void handle_events(SDL_Event *event, world_t *world)
             }
             if (event->key.keysym.sym == SDLK_LEFT)
             {
-                world->ship.pos_x -= MOVING_STEP;
+                world->ship.speed_h = -MOVING_STEP;
             }
             if (event->key.keysym.sym == SDLK_RIGHT)
             {
-                world->ship.pos_x += MOVING_STEP;
+                world->ship.speed_h = MOVING_STEP;
             }
             if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible)
             {
@@ -106,6 +106,13 @@ void handle_events(SDL_Event *event, world_t *world)
                 world->missile.pos_y = world->ship.pos_y;
             }
         }
+        // if (event->type == SDL_KEYUP)
+        // {
+        //     if (event->key.keysym.sym == SDLK_LEFT || event->key.keysym.sym == SDLK_RIGHT)
+        //     {
+        //         world->ship.speed_h = 0;
+        //     }
+        // }
     }
 }
 

@@ -19,11 +19,12 @@
  */
 struct sprite_s
 {
-    int pos_x;
-    int pos_y;
-    int height;
-    int width;
+    int pos_x;      // position horizontale
+    int pos_y;      // position verticale
+    int height;     // hauteur du sprite en pixels
+    int width;      // largeur du sprite en pixels
     int speed_v;    // vitesse verticale
+    int speed_h;    // vitesse horizontale
     int is_visible; // définit la visibilité du sprite
 };
 
@@ -34,16 +35,16 @@ typedef struct sprite_s sprite_t;
  */
 struct world_s
 {
-    sprite_t enemies[NB_ENEMIES];
-    sprite_t ship;
+    sprite_t enemies[NB_ENEMIES];   // tableau représentant les ennemis
+    sprite_t ship;                  // vaisseau du joueur
     // sprite_t enemy;
-    sprite_t missile;
-    int gameover; /*!< Champ indiquant si l'on est à la fin du jeu */
+    sprite_t missile;               // missile du joueur
+    int gameover;  /*!< Champ indiquant si l'on est à la fin du jeu */
     int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abattu tous les ennemis, 3 = détruit et pas abattu tous les ennemis
-    int score;
-    int enemies_passed;
-    int enemies_destroyed;
-    int exit_time;
+    int score;      // score du joueur (= nombre de vaisseaux détruits)
+    int enemies_passed; // ennemis non détruits qui sont sortis de l'écran
+    int enemies_destroyed;  // ennemis détruits par le joueur
+    int exit_time;          // temps avant sortie du programme
 };
 
 /**
@@ -69,8 +70,8 @@ void set_invisible(sprite_t *sprite);
 
 /**
  * @brief Cache le sprite, et réinitialise ses valeurs
- * 
- * @param sprite 
+ *
+ * @param sprite
  */
 void despawn_sprite(sprite_t *sprite);
 
@@ -117,36 +118,43 @@ void init_enemies(world_t *world);
 int is_game_over(world_t *world);
 
 /**
- * \brief La fonction met à jour les données en tenant compte de la physique du monde
- * \param world les données du monde
+ * @brief Met à jour les données et la position d'un seul ennemi
+ * 
+ * @param world 
+ * @param i index de l'ennemi dans le tableau
  */
-
+void update_single_enemy(world_t *world, int i);
 
 /**
  * @brief La fonction met a jour la position des ennemis
- * 
- * @param world 
+ *
+ * @param world
  */
-void update_enemies(world_t* world);
+void update_enemies(world_t *world);
 
+/**
+ * \brief La fonction met à jour les données en tenant compte de la physique du monde
+ * \param world les données du monde
+ */
 void update_data(world_t *world);
+
 /**
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse
- * 
- * @param world 
+ *
+ * @param world
  */
-void enemy_limit(world_t* world);
+void enemy_limit(world_t *world);
 
 /**
  * @brief replace le vaisseau s'il dépasse la limite
- * 
- * @param world 
+ *
+ * @param world
  */
 void ship_limit(world_t *world);
 
 /**
  * @brief Vérifie si sp1 est en collision avec sp2 selon un radius type cercle
- * 
+ *
  * @param sp1 sprite numéro 1
  * @param sp2 sprite numéro 2
  * @return 1 si collision, sinon 0
@@ -155,17 +163,17 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2);
 
 /**
  * @brief prend en charge les collisions
- * 
+ *
  * @param sp1 premier sprite
  * @param sp2 second sprite
- * 
+ *
  * @return has collision happened
  */
 int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
 
 /**
  * @brief calcule le score à partir des données du monde
- * 
+ *
  * @param world données du monde
  */
 void compute_game(world_t *world);
