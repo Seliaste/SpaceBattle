@@ -24,6 +24,7 @@ struct sprite_s
     int height;     // hauteur du sprite en pixels
     int width;      // largeur du sprite en pixels
     int speed_v;    // vitesse verticale
+    int speed_h;    // vitesse horizontale
     int is_visible; // définit la visibilité du sprite
 };
 
