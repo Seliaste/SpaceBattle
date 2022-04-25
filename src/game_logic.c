@@ -74,23 +74,27 @@ int is_game_over(world_t *world)
 {
     return world->gameover;
 }
-void update_enemies(world_t* world)
+void update_enemies(world_t *world)
 {
-    for (int i=0;i<NB_ENEMIES;i++){
-        if (handle_sprites_collision(&world->enemies[i],&world->ship)){
-            world->enemies_destroyed +=1; 
+    for (int i = 0; i < NB_ENEMIES; i++)
+    {
+        if (handle_sprites_collision(&world->enemies[i], &world->ship))
+        {
+            world->enemies_destroyed += 1;
         }
-        if(handle_sprites_collision(&world->enemies[i],&world->missile)){
+        if (handle_sprites_collision(&world->enemies[i], &world->missile))
+        {
             world->enemies_destroyed += 1;
             world->score += 1;
         }
-        world->enemies[i].pos_y+= world->enemies[i].speed_v;
-        if (world->enemies[i].pos_y>SCREEN_HEIGHT+SHIP_SIZE/2 && world->enemies[i].is_visible){
-            world->enemies_passed+=1;
+        world->enemies[i].pos_y += world->enemies[i].speed_v;
+        if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
+        {
+            world->enemies_passed += 1;
             world->enemies[i].speed_v = 0;
             despawn_sprite(&world->enemies[i]);
-            printf("%d ennemis sont sortis\n",world->enemies_passed);
-        } 
+            printf("%d ennemis sont sortis\n", world->enemies_passed);
+        }
     }
 }
 void update_data(world_t *world)
@@ -141,8 +145,9 @@ int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2)
     return 0;
 }
 
-void compute_game(world_t *world){
-    if(world->enemies_passed+world->enemies_destroyed < NB_ENEMIES)
+void compute_game(world_t *world)
+{
+    if (world->enemies_passed + world->enemies_destroyed < NB_ENEMIES)
     {
         world->gamestate = 0;
         world->score = world->enemies_destroyed;
@@ -150,19 +155,20 @@ void compute_game(world_t *world){
     }
     // le jeu est fini
     world->exit_time += 10; // temps entre chaque itération
-    if(world->exit_time >= EXIT_DELAY){ // si le délai est fini
+    if (world->exit_time >= EXIT_DELAY)
+    {                        // si le délai est fini
         world->gameover = 1; // on quitte
     }
-    if(!world->ship.is_visible) // le vaisseau est détruit
+    if (!world->ship.is_visible) // le vaisseau est détruit
     {
         world->gamestate = 1;
         world->score = 0;
         return;
     }
-    if(world->enemies_passed > 0) // des ennemis sont passés
+    if (world->enemies_passed > 0) // des ennemis sont passés
     {
         world->gamestate = 3;
         return;
     }
-    world-> gamestate = 2; // = gagné
+    world->gamestate = 2; // = gagné
 }
