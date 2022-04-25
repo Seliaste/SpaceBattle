@@ -74,27 +74,33 @@ int is_game_over(world_t *world)
 {
     return world->gameover;
 }
+
+void update_single_enemy(world_t *world, int i)
+{
+    if (handle_sprites_collision(&world->enemies[i], &world->ship))
+    {
+        world->enemies_destroyed += 1;
+    }
+    if (handle_sprites_collision(&world->enemies[i], &world->missile))
+    {
+        world->enemies_destroyed += 1;
+        world->score += 1;
+    }
+    world->enemies[i].pos_y += world->enemies[i].speed_v;
+    if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
+    {
+        world->enemies_passed += 1;
+        world->enemies[i].speed_v = 0;
+        despawn_sprite(&world->enemies[i]);
+        printf("%d ennemis sont sortis\n", world->enemies_passed);
+    }
+}
+
 void update_enemies(world_t *world)
 {
     for (int i = 0; i < NB_ENEMIES; i++)
     {
-        if (handle_sprites_collision(&world->enemies[i], &world->ship))
-        {
-            world->enemies_destroyed += 1;
-        }
-        if (handle_sprites_collision(&world->enemies[i], &world->missile))
-        {
-            world->enemies_destroyed += 1;
-            world->score += 1;
-        }
-        world->enemies[i].pos_y += world->enemies[i].speed_v;
-        if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
-        {
-            world->enemies_passed += 1;
-            world->enemies[i].speed_v = 0;
-            despawn_sprite(&world->enemies[i]);
-            printf("%d ennemis sont sortis\n", world->enemies_passed);
-        }
+        update_single_enemy(world, i);
     }
 }
 void update_data(world_t *world)

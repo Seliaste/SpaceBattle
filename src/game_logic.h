@@ -117,6 +117,14 @@ void init_enemies(world_t *world);
 int is_game_over(world_t *world);
 
 /**
+ * @brief Met à jour les données et la position d'un seul ennemi
+ * 
+ * @param world 
+ * @param i index de l'ennemi dans le tableau
+ */
+void update_single_enemy(world_t *world, int i);
+
+/**
  * @brief La fonction met a jour la position des ennemis
  *
  * @param world
