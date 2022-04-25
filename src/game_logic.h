@@ -87,7 +87,7 @@ void respawn_sprite(sprite_t *sprite, int x, int y);
  * @param h hauteur
  * @param v vitesse verticale
  */
-void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v, int visible);
+void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int vv,int vh, int visible);
 
 /**
  * @brief affiche les informations du sprite

@@ -106,13 +106,13 @@ void handle_events(SDL_Event *event, world_t *world)
                 world->missile.pos_y = world->ship.pos_y;
             }
         }
-        // if (event->type == SDL_KEYUP)
-        // {
-        //     if (event->key.keysym.sym == SDLK_LEFT || event->key.keysym.sym == SDLK_RIGHT)
-        //     {
-        //         world->ship.speed_h = 0;
-        //     }
-        // }
+        if (event->type == SDL_KEYUP)
+        {
+            if (event->key.keysym.sym == SDLK_LEFT || event->key.keysym.sym == SDLK_RIGHT)
+            {
+                world->ship.speed_h = 0;
+            }
+        }
     }
 }
 

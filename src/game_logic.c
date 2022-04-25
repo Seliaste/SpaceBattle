@@ -27,13 +27,14 @@ void respawn_sprite(sprite_t *sprite, int x, int y)
     set_visible(sprite);
 }
 
-void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int v, int visible)
+void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int vv,int vh, int visible)
 {
     sprite->pos_x = x;
     sprite->pos_y = y;
     sprite->width = w;
     sprite->height = h;
-    sprite->speed_v = v;
+    sprite->speed_v = vv;
+    sprite->speed_h = vh;
     sprite->is_visible = visible;
 }
 
@@ -51,9 +52,9 @@ void init_data(world_t *world)
     world->enemies_destroyed = 0;
     world->exit_time = 0;
     // initialise un vaisseau en bas de l'ecran
-    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 1);
+    init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE,0 ,0, 1);
     // initialise un missile positionné sur le vaisseau
-    init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0);
+    init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED,0, 0);
     init_enemies(world);
 }
 
@@ -66,7 +67,7 @@ void init_enemies(world_t *world)
 {
     for (int i = 0; i < NB_ENEMIES; i++)
     {
-        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - i * VERTICAL_DIST, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 1);
+        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - i * VERTICAL_DIST, SHIP_SIZE, SHIP_SIZE ,ENEMY_SPEED,0 , 1);
     }
 }
 
@@ -103,8 +104,15 @@ void update_enemies(world_t *world)
         update_single_enemy(world, i);
     }
 }
+
+void move_ship(world_t *world)
+{
+    world->ship.pos_x += world->ship.speed_h;
+}
+
 void update_data(world_t *world)
 {
+    move_ship(world);
     // world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
     ship_limit(world);
