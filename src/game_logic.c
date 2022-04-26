@@ -163,7 +163,7 @@ void compute_game(world_t *world)
 {
     if (world->enemies_passed + world->enemies_destroyed < NB_ENEMIES)
     {
-        world->gamestate = 0;
+        world->gamestate = playing;
         world->score = world->enemies_destroyed;
         return;
     }
@@ -175,14 +175,14 @@ void compute_game(world_t *world)
     }
     if (!world->ship.is_visible) // le vaisseau est détruit
     {
-        world->gamestate = 1;
+        world->gamestate = destroyed;
         world->score = 0;
         return;
     }
     if (world->enemies_passed > 0) // des ennemis sont passés
     {
-        world->gamestate = 3;
+        world->gamestate = survived;
         return;
     }
-    world->gamestate = 2; // = gagné
+    world->gamestate = won; // = gagné
 }

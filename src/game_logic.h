@@ -30,6 +30,14 @@ struct sprite_s
 
 typedef struct sprite_s sprite_t;
 
+enum states
+{
+    playing,    // jeu en cours
+    destroyed,  // détruit
+    won,        // abattu tous les ennemis
+    survived    // pas abattu tous les enemis
+};
+
 /**
  * \brief Représentation du monde du jeu
  */
@@ -40,7 +48,7 @@ struct world_s
     // sprite_t enemy;
     sprite_t missile;               // missile du joueur
     int gameover;  /*!< Champ indiquant si l'on est à la fin du jeu */
-    int gamestate; // 0 = jeu en cours, 1 = détruit, 2 = détruit et abattu tous les ennemis, 3 = détruit et pas abattu tous les ennemis
+    enum states gamestate; // état du jeu
     int score;      // score du joueur (= nombre de vaisseaux détruits)
     int enemies_passed; // ennemis non détruits qui sont sortis de l'écran
     int enemies_destroyed;  // ennemis détruits par le joueur
