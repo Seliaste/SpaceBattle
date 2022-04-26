@@ -42,7 +42,7 @@ int audio_Init(SDL_AudioSpec *audio)
     audio->userdata = NULL;
 
     // Initialisation de la couche audio
-    if (SDL_OpenAudio(audio, NULL) < 0)
+    if (SDL_OpenAudioDevice(NULL, 0, audio, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE) < 0)
     {
         fprintf(stderr, "Erreur d'ouverture audio: %s\n", SDL_GetError());
         return (-1);
