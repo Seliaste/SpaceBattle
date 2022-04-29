@@ -20,7 +20,9 @@ struct resources_s
     SDL_Texture *enemy;
     SDL_Texture *ship;
     SDL_Texture *missile;
+    SDL_Texture *heart;
     TTF_Font *font;
+    
 };
 
 /**

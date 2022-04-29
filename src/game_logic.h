@@ -53,6 +53,7 @@ struct world_s
     int enemies_passed; // ennemis non détruits qui sont sortis de l'écran
     int enemies_destroyed;  // ennemis détruits par le joueur
     int exit_time;          // temps avant sortie du programme
+    int lives;             //  vies du vaisseau
 };
 
 /**
