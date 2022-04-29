@@ -35,7 +35,7 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
  * \param resources les resources
  * \param wordl le monde
  */
-void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world, SDL_AudioSpec *audio)
+void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world)
 {
     init_sdl(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
     init_data(world);
@@ -100,10 +100,9 @@ int main(int argc, char *args[])
     resources_t resources;
     SDL_Renderer *renderer;
     SDL_Window *window;
-    SDL_AudioSpec audio;
     srand(time(NULL));
     // initialisation du jeu
-    init(&window, &renderer, &resources, &world, &audio);
+    init(&window, &renderer, &resources, &world);
 
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
