@@ -9,6 +9,7 @@
 
 #include "src/graphics.h"
 #include "src/game_logic.h"
+#include <SDL2/SDL_mixer.h>
 
 
 
@@ -25,30 +26,6 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
     clean_data(world);
     clean_resources(resources);
     clean_sdl(renderer, window);
-}
-
-void audioCallback(void *udata, Uint8 *stream, int len){
-    
-}
-
-int audio_Init(SDL_AudioSpec *audio)
-{
-    // Définition des propriétés audio
-    audio->freq = 44100;
-    audio->format = AUDIO_S16;
-    audio->channels = 2;
-    audio->samples = 1024;
-    audio->callback = audioCallback;
-    audio->userdata = NULL;
-
-    // Initialisation de la couche audio
-    if (SDL_OpenAudioDevice(NULL, 0, audio, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE) < 0)
-    {
-        fprintf(stderr, "Erreur d'ouverture audio: %s\n", SDL_GetError());
-        return (-1);
-    }
-
-    return 0;
 }
 
 /**
@@ -99,7 +76,7 @@ void handle_events(SDL_Event *event, world_t *world)
             {
                 world->ship.speed_h = MOVING_STEP;
             }
-            if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible)
+            if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible && !world->missile.is_visible)
             {
                 set_visible(&world->missile);
                 world->missile.pos_x = world->ship.pos_x; // reset la position du missile sur le vaisseau
