@@ -13,6 +13,7 @@
 #include "../sdl2-light.h"
 #include "game_logic.h"
 #include "sdl2-ttf-light.h"
+#include <SDL2/SDL_mixer.h>
 
 struct resources_s
 {
@@ -22,7 +23,7 @@ struct resources_s
     SDL_Texture *missile;
     SDL_Texture *heart;
     TTF_Font *font;
-    
+    Mix_Chunk *music;
 };
 
 /**

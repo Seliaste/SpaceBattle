@@ -17,6 +17,11 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     resources->missile = load_image("ressources/missile.bmp", renderer);
     resources->font = load_font("ressources/edosz.ttf", 200);
     resources->heart = load_image("ressources/heart.bmp", renderer);
+    resources->music = Mix_LoadWAV("ressources/music.wav");
+    if(resources->music == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
 }
 
 void apply_background(SDL_Renderer *renderer, resources_t *resources)

@@ -26,6 +26,23 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
     clean_data(world);
     clean_resources(resources);
     clean_sdl(renderer, window);
+    SDL_CloseAudio();
+}
+
+void init_audio(resources_t *resources){
+    // Set up the audio stream
+    int result = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 512);
+    if( result < 0 )
+    {
+        fprintf(stderr, "Unable to open audio: %s\n", Mix_GetError());
+        exit(-1);
+    }
+    result = Mix_AllocateChannels(4);
+    if( result < 0 )
+    {
+        fprintf(stderr, "Unable to allocate mixing channels: %s\n", Mix_GetError());
+        exit(-1);
+    }
 }
 
 /**
@@ -40,8 +57,8 @@ void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, 
     init_sdl(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
     init_data(world);
     init_ttf();
+    init_audio(resources);
     init_resources(*renderer, resources);
-    
 }
 
 /**
@@ -93,6 +110,16 @@ void handle_events(SDL_Event *event, world_t *world)
     }
 }
 
+void play_music(resources_t *resources)
+{
+    int result = Mix_PlayChannel(-1, resources->music,1);
+    if(result < 0)
+    {
+        fprintf(stderr, "Could not play music file: %s\n",Mix_GetError());
+        exit(-1);
+    }
+}
+
 int main(int argc, char *args[])
 {
     SDL_Event event;
@@ -103,7 +130,7 @@ int main(int argc, char *args[])
     srand(time(NULL));
     // initialisation du jeu
     init(&window, &renderer, &resources, &world);
-
+    play_music(resources)
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
 
