@@ -16,7 +16,12 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     resources->enemy = load_image("ressources/asteroid.bmp", renderer);
     resources->missile = load_image("ressources/missile.bmp", renderer);
     resources->font = load_font("ressources/edosz.ttf", 200);
-    resources->heart = load_image("ressources/heart.bmp",renderer);
+    resources->heart = load_image("ressources/heart.bmp", renderer);
+    resources->music = Mix_LoadWAV("ressources/music.wav");
+    if(resources->music == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
 }
 
 void apply_background(SDL_Renderer *renderer, resources_t *resources)
@@ -55,24 +60,26 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
     switch (world->gamestate)
     {
     case 0:
-        sprintf(text,"");
+        sprintf(text, "");
         break;
     case 1:
-        sprintf(text,"Destroyed");
+        sprintf(text, "Destroyed");
         break;
     case 3:
-        sprintf(text,"You survived");
+        sprintf(text, "You survived");
         break;
     case 2:
-        sprintf(text,"You won!");
+        sprintf(text, "You won!");
         break;
     }
-    apply_text(renderer, SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2 - 20, 100, 100/3, text, font);
+    apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 100, 100 / 3, text, font);
 }
 
-void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world){
-    for (int i=0;i<world->lives;i++){
-        apply_texture(heart,renderer,4+i*36,SCREEN_HEIGHT - 36);
+void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world)
+{
+    for (int i = 0; i < world->lives; i++)
+    {
+        apply_texture(heart, renderer, 4 + i * 36, SCREEN_HEIGHT - 36);
     }
 }
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resources)
@@ -94,7 +101,7 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resou
     apply_enemies(renderer, world, resources);
 
     apply_score_text(renderer, resources->font, world->score);
-    
+
     apply_lifebar(renderer, resources->heart, world);
 
     apply_endgame_text(renderer, resources->font, world);

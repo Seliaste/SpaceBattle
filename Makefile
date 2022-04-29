@@ -1,7 +1,7 @@
 CFLAGS = -O3 `sdl2-config --cflags`
-LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lm
+LDFLAGS = `sdl2-config --libs` -lSDL2_ttf -lSDL2_mixer -lm
 
-INC = sdl2-light.h
+INC = sdl2-light.h src/const.h
 SRC = main.c sdl2-light.c src/game_logic.c src/graphics.c src/sdl2-ttf-light.c
 SRCTEST = src/tests/tests.c src/game_logic.c
 OBJ = $(SRC:%.c=%.o)

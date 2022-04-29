@@ -9,6 +9,7 @@
 
 #include "src/graphics.h"
 #include "src/game_logic.h"
+#include <SDL2/SDL_mixer.h>
 
 
 
@@ -25,30 +26,23 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
     clean_data(world);
     clean_resources(resources);
     clean_sdl(renderer, window);
+    SDL_CloseAudio();
 }
 
-void audioCallback(void *udata, Uint8 *stream, int len){
-    
-}
-
-int audio_Init(SDL_AudioSpec *audio)
-{
-    // Définition des propriétés audio
-    audio->freq = 44100;
-    audio->format = AUDIO_S16;
-    audio->channels = 2;
-    audio->samples = 1024;
-    audio->callback = audioCallback;
-    audio->userdata = NULL;
-
-    // Initialisation de la couche audio
-    if (SDL_OpenAudioDevice(NULL, 0, audio, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE) < 0)
+void init_audio(resources_t *resources){
+    // Set up the audio stream
+    int result = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 512);
+    if( result < 0 )
     {
-        fprintf(stderr, "Erreur d'ouverture audio: %s\n", SDL_GetError());
-        return (-1);
+        fprintf(stderr, "Unable to open audio: %s\n", Mix_GetError());
+        exit(-1);
     }
-
-    return 0;
+    result = Mix_AllocateChannels(4);
+    if( result < 0 )
+    {
+        fprintf(stderr, "Unable to allocate mixing channels: %s\n", Mix_GetError());
+        exit(-1);
+    }
 }
 
 /**
@@ -58,13 +52,13 @@ int audio_Init(SDL_AudioSpec *audio)
  * \param resources les resources
  * \param wordl le monde
  */
-void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world, SDL_AudioSpec *audio)
+void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, world_t *world)
 {
     init_sdl(window, renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
     init_data(world);
     init_ttf();
+    init_audio(resources);
     init_resources(*renderer, resources);
-    
 }
 
 /**
@@ -99,7 +93,7 @@ void handle_events(SDL_Event *event, world_t *world)
             {
                 world->ship.speed_h = MOVING_STEP;
             }
-            if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible)
+            if (event->key.keysym.sym == SDLK_SPACE && world->ship.is_visible && !world->missile.is_visible)
             {
                 set_visible(&world->missile);
                 world->missile.pos_x = world->ship.pos_x; // reset la position du missile sur le vaisseau
@@ -116,6 +110,16 @@ void handle_events(SDL_Event *event, world_t *world)
     }
 }
 
+void play_music(resources_t *resources)
+{
+    int result = Mix_PlayChannel(-1, resources->music,1);
+    if(result < 0)
+    {
+        fprintf(stderr, "Could not play music file: %s\n",Mix_GetError());
+        exit(-1);
+    }
+}
+
 int main(int argc, char *args[])
 {
     SDL_Event event;
@@ -123,11 +127,10 @@ int main(int argc, char *args[])
     resources_t resources;
     SDL_Renderer *renderer;
     SDL_Window *window;
-    SDL_AudioSpec audio;
     srand(time(NULL));
     // initialisation du jeu
-    init(&window, &renderer, &resources, &world, &audio);
-
+    init(&window, &renderer, &resources, &world);
+    play_music(resources)
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
 

@@ -117,11 +117,20 @@ void move_ship(world_t *world)
     world->ship.pos_x += world->ship.speed_h;
 }
 
+void missile_limit(world_t *world)
+{
+    if(world->missile.pos_y<0)
+    {
+        despawn_sprite(&world->missile);
+    }
+}
+
 void update_data(world_t *world)
 {
     move_ship(world);
     // world->enemy.pos_y += world->enemy.speed_v;
     world->missile.pos_y -= world->missile.speed_v;
+    missile_limit(world);
     ship_limit(world);
     // enemy_limit(world);
     // handle_sprites_collision(&world->ship, &world->enemy);
