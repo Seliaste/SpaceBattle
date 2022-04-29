@@ -9,6 +9,7 @@
 #define GAME_LOGIC_H
 
 #include "const.h"
+#include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
@@ -25,7 +26,8 @@ struct sprite_s
     int width;      // largeur du sprite en pixels
     int speed_v;    // vitesse verticale
     int speed_h;    // vitesse horizontale
-    int is_visible; // définit la visibilité du sprite
+    bool is_visible; // définit la visibilité du sprite
+    bool play_explosion; // doit jouer un bruit d'explosion prochaine loop
 };
 
 typedef struct sprite_s sprite_t;

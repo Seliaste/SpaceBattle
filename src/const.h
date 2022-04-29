@@ -12,7 +12,7 @@
  * @brief définit la vitesse d'un ennemi
  *
  */
-#define ENEMY_SPEED 2
+#define ENEMY_SPEED 1
 
 /**
  * \brief Représentation pour stocker les textures nécessaires à l'affichage graphique

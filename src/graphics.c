@@ -22,6 +22,11 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }
+    resources->explosion = Mix_LoadWAV("ressources/explosion.wav");
+    if(resources->explosion == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
 }
 
 void apply_background(SDL_Renderer *renderer, resources_t *resources)
@@ -39,11 +44,16 @@ void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite
         apply_texture(texture, renderer, sprite->pos_x - sprite->width / 2, sprite->pos_y - sprite->height / 2);
     }
 }
+
 void apply_enemies(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
     for (int i = 0; i < NB_ENEMIES; i++)
     {
         apply_sprite(renderer, resources->enemy, &world->enemies[i]);
+        if(world->enemies[i].play_explosion){
+            world->enemies[i].play_explosion = false;
+            Mix_PlayChannel(-1,resources->explosion,0);
+        }
     }
 }
 
@@ -82,6 +92,7 @@ void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world)
         apply_texture(heart, renderer, 4 + i * 36, SCREEN_HEIGHT - 36);
     }
 }
+
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
 

@@ -36,6 +36,7 @@ void init_sprite(sprite_t *sprite, int x, int y, int w, int h, int vv, int vh, i
     sprite->speed_v = vv;
     sprite->speed_h = vh;
     sprite->is_visible = visible;
+    sprite->play_explosion = false;
 }
 
 void print_sprite(sprite_t *sprite)
@@ -81,6 +82,7 @@ void update_single_enemy(world_t *world, int i)
 {
     if (handle_sprites_collision(&world->enemies[i], &world->ship))
     {
+        world->enemies[i].play_explosion = true;
         world->enemies_destroyed += 1;
         if (world->lives > 1)
         {
@@ -93,6 +95,7 @@ void update_single_enemy(world_t *world, int i)
     {
         world->enemies_destroyed += 1;
         world->score += 1;
+        world->enemies[i].play_explosion = true;
     }
     world->enemies[i].pos_y += world->enemies[i].speed_v;
     if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
