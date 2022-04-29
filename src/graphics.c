@@ -11,9 +11,9 @@ void clean_resources(resources_t *resources)
 
 void init_resources(SDL_Renderer *renderer, resources_t *resources)
 {
-    resources->background = load_image("ressources/space-background.bmp", renderer);
-    resources->ship = load_image("ressources/spaceship.bmp", renderer);
-    resources->enemy = load_image("ressources/enemy.bmp", renderer);
+    resources->background = load_image("ressources/background2.bmp", renderer);
+    resources->ship = load_image("ressources/spaceship2.bmp", renderer);
+    resources->enemy = load_image("ressources/asteroid.bmp", renderer);
     resources->missile = load_image("ressources/missile.bmp", renderer);
     resources->font = load_font("ressources/edosz.ttf", 200);
     resources->heart = load_image("ressources/heart.bmp",renderer);
