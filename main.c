@@ -130,7 +130,7 @@ int main(int argc, char *args[])
     srand(time(NULL));
     // initialisation du jeu
     init(&window, &renderer, &resources, &world);
-    play_music(resources)
+    play_music(&resources);
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
 
