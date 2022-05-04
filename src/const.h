@@ -67,4 +67,8 @@
  */
 #define LIVES 3
 
+#define EXPLOSION_FRAMES 5
+
+#define EXPLOSION_FRAMETIME 10
+
 #endif

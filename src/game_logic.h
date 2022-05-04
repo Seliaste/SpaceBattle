@@ -49,6 +49,8 @@ struct world_s
     sprite_t ship;                  // vaisseau du joueur
     // sprite_t enemy;
     sprite_t missile;               // missile du joueur
+    sprite_t explosion;
+    int current_explosion_frame;
     int gameover;  /*!< Champ indiquant si l'on est à la fin du jeu */
     enum states gamestate; // état du jeu
     int score;      // score du joueur (= nombre de vaisseaux détruits)

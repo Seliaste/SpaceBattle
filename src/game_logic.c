@@ -53,10 +53,12 @@ void init_data(world_t *world)
     world->enemies_destroyed = 0;
     world->exit_time = 0;
     world->lives = LIVES;
+    world->current_explosion_frame = 0;
     // initialise un vaisseau en bas de l'ecran
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 0, 1);
     // initialise un missile positionné sur le vaisseau
     init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0, 0);
+    init_sprite(&(world->explosion), 100,100, SHIP_SIZE, SHIP_SIZE,0,0,1);
     init_enemies(world);
 }
 
@@ -96,6 +98,10 @@ void update_single_enemy(world_t *world, int i)
         world->enemies_destroyed += 1;
         world->score += 1;
         world->enemies[i].play_explosion = true;
+        world->explosion.pos_x = world->enemies[i].pos_x;
+        world->explosion.pos_y = world->enemies[i].pos_y;
+        world->explosion.is_visible = 1;
+        world->current_explosion_frame = 0;
     }
     world->enemies[i].pos_y += world->enemies[i].speed_v;
     if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
@@ -140,6 +146,10 @@ void update_data(world_t *world)
     // handle_sprites_collision(&world->enemy, &world->missile);
     update_enemies(world);
     compute_game(world);
+    world->current_explosion_frame = (world->current_explosion_frame+1)%(EXPLOSION_FRAMES*EXPLOSION_FRAMETIME);
+    if(world->current_explosion_frame == 0){
+        world->explosion.is_visible = 0;
+    }
 }
 
 void ship_limit(world_t *world)
