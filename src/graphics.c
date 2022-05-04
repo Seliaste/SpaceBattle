@@ -32,6 +32,16 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }
+    resources->explosion_sfx = Mix_LoadWAV("ressources/explosion.wav");
+    if(resources->explosion_sfx == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
+    resources->damage_sfx = Mix_LoadWAV("ressources/damage.wav");
+    if(resources->damage_sfx == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
 }
 
 void apply_background(SDL_Renderer *renderer, resources_t *resources)
@@ -98,11 +108,16 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
     apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 100, 100 / 3, text, font);
 }
 
-void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world)
+void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx)
 {
     for (int i = 0; i < world->lives; i++)
     {
         apply_texture(heart, renderer, 4 + i * 36, SCREEN_HEIGHT - 36);
+        
+    }
+    if (world->play_damage_sfx){
+        world->play_damage_sfx = false;
+        Mix_PlayChannel(-1,damage_sfx,0);
     }
 }
 
@@ -129,7 +144,7 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resou
 
     apply_score_text(renderer, resources->font, world->score);
 
-    apply_lifebar(renderer, resources->heart, world);
+    apply_lifebar(renderer, resources->heart, world, resources->damage_sfx);
 
     apply_endgame_text(renderer, resources->font, world);
 

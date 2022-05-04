@@ -58,6 +58,7 @@ struct world_s
     int enemies_destroyed;  // ennemis détruits par le joueur
     int exit_time;          // temps avant sortie du programme
     int lives;             //  vies du vaisseau
+    bool play_damage_sfx;
 };
 
 /**

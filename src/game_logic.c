@@ -54,6 +54,7 @@ void init_data(world_t *world)
     world->exit_time = 0;
     world->lives = LIVES;
     world->current_explosion_frame = 0;
+    world->play_damage_sfx = false;
     // initialise un vaisseau en bas de l'ecran
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 0, 1);
     // initialise un missile positionné sur le vaisseau
@@ -91,6 +92,7 @@ void update_single_enemy(world_t *world, int i)
             set_visible(&world->ship);
         }
         world->lives -= 1;
+        world->play_damage_sfx = true;
     }
 
     if (handle_sprites_collision(&world->enemies[i], &world->missile))

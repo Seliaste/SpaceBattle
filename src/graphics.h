@@ -25,6 +25,7 @@ struct resources_s
     TTF_Font *font;
     Mix_Chunk *music;
     Mix_Chunk *explosion_sfx;
+    Mix_Chunk *damage_sfx;
     SDL_Texture *explosion[EXPLOSION_FRAMES];
 };
 
