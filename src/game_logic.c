@@ -85,7 +85,6 @@ void update_single_enemy(world_t *world, int i)
 {
     if (handle_sprites_collision(&world->enemies[i], &world->ship))
     {
-        world->enemies[i].play_explosion = true;
         world->enemies_destroyed += 1;
         if (world->lives > 1)
         {
