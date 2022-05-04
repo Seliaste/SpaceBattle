@@ -191,7 +191,7 @@ int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2)
 
 void compute_game(world_t *world)
 {
-    if (world->enemies_passed + world->enemies_destroyed < NB_ENEMIES)
+    if (world->enemies_passed + world->enemies_destroyed < NB_ENEMIES && world->ship.is_visible)
     {
         world->gamestate = playing;
         world->score = world->enemies_destroyed;
