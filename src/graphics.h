@@ -29,28 +29,28 @@ struct resources_s
 };
 
 /**
- * \brief Type qui correspond aux resources du jeu
+ * \brief Type qui correspond aux ressources du jeu
  */
 
 typedef struct resources_s resources_t;
 
 /**
- * \brief La fonction nettoie les resources
- * \param resources les resources
+ * \brief La fonction nettoie les ressources
+ * \param resources les ressources
  */
 void clean_resources(resources_t *resources);
 
 /**
  * \brief La fonction initialise les texures
  * \param screen la surface correspondant à l'écran de jeu
- * \param resources les resources du jeu
+ * \param resources les ressources du jeu
  */
 void init_resources(SDL_Renderer *renderer, resources_t *resources);
 
 /**
  * \brief La fonction applique la texture du fond sur le renderer lié à l'écran de jeu
  * \param renderer le renderer
- * \param resources les resources du jeu
+ * \param resources les ressources du jeu
  */
 void apply_background(SDL_Renderer *renderer, resources_t *resources);
 
@@ -66,7 +66,7 @@ void apply_enemies(SDL_Renderer *renderer, world_t *world, resources_t *resource
  * \brief La fonction rafraichit l'écran en fonction de l'état des données du monde
  * \param renderer la surface de l'écran de jeu
  * \param world les données du monde
- * \param resources les resources
+ * \param resources les ressources
  */
 void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite);
 
