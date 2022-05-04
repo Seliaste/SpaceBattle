@@ -178,7 +178,7 @@ int sprite_collide(sprite_t *sp1, sprite_t *sp2);
  * @param sp1 premier sprite
  * @param sp2 second sprite
  *
- * @return has collision happened
+ * @return 0 si il n'y a pas de collision, 1 sinon
  */
 int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2);
 
