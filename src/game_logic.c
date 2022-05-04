@@ -58,7 +58,7 @@ void init_data(world_t *world)
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 0, 1);
     // initialise un missile positionné sur le vaisseau
     init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0, 0);
-    init_sprite(&(world->explosion), 100,100, SHIP_SIZE, SHIP_SIZE,0,0,1);
+    init_sprite(&(world->explosion), 0,0, SHIP_SIZE, SHIP_SIZE,0,0,0);
     init_enemies(world);
 }
 
