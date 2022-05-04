@@ -24,7 +24,8 @@ struct resources_s
     SDL_Texture *heart;
     TTF_Font *font;
     Mix_Chunk *music;
-    Mix_Chunk *explosion;
+    Mix_Chunk *explosion_sfx;
+    SDL_Texture *explosion[EXPLOSION_FRAMES];
 };
 
 /**

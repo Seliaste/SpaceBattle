@@ -17,13 +17,18 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     resources->missile = load_image("ressources/missile.bmp", renderer);
     resources->font = load_font("ressources/edosz.ttf", 200);
     resources->heart = load_image("ressources/heart.bmp", renderer);
+    resources->explosion[0] = load_image("ressources/explosion1.bmp", renderer);
+    resources->explosion[1] = load_image("ressources/explosion2.bmp", renderer);
+    resources->explosion[2] = load_image("ressources/explosion3.bmp", renderer);
+    resources->explosion[3] = load_image("ressources/explosion4.bmp", renderer);
+    resources->explosion[4] = load_image("ressources/explosion5.bmp", renderer);
     resources->music = Mix_LoadWAV("ressources/music.wav");
     if(resources->music == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }
-    resources->explosion = Mix_LoadWAV("ressources/explosion.wav");
-    if(resources->explosion == NULL)
+    resources->explosion_sfx = Mix_LoadWAV("ressources/explosion.wav");
+    if(resources->explosion_sfx == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }
@@ -45,6 +50,14 @@ void apply_sprite(SDL_Renderer *renderer, SDL_Texture *texture, sprite_t *sprite
     }
 }
 
+void apply_explosion(SDL_Renderer *renderer, resources_t *resources, sprite_t *sprite, int frame)
+{
+    if (sprite->is_visible)
+    {
+        apply_texture(resources->explosion[frame/EXPLOSION_FRAMETIME], renderer, sprite->pos_x - sprite->width / 2, sprite->pos_y - sprite->height / 2);
+    }
+}
+
 void apply_enemies(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
     for (int i = 0; i < NB_ENEMIES; i++)
@@ -52,7 +65,7 @@ void apply_enemies(SDL_Renderer *renderer, world_t *world, resources_t *resource
         apply_sprite(renderer, resources->enemy, &world->enemies[i]);
         if(world->enemies[i].play_explosion){
             world->enemies[i].play_explosion = false;
-            Mix_PlayChannel(-1,resources->explosion,0);
+            Mix_PlayChannel(-1,resources->explosion_sfx,0);
         }
     }
 }
@@ -93,6 +106,7 @@ void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world)
     }
 }
 
+
 void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resources)
 {
 
@@ -110,6 +124,8 @@ void refresh_graphics(SDL_Renderer *renderer, world_t *world, resources_t *resou
     apply_sprite(renderer, resources->missile, &world->missile);
 
     apply_enemies(renderer, world, resources);
+
+    apply_explosion(renderer, resources, &world->explosion, world->current_explosion_frame);
 
     apply_score_text(renderer, resources->font, world->score);
 
