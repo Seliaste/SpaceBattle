@@ -59,7 +59,7 @@ void init_data(world_t *world)
     init_sprite(&(world->ship), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, SHIP_SIZE, SHIP_SIZE, 0, 0, 1);
     // initialise un missile positionné sur le vaisseau
     init_sprite(&(world->missile), SCREEN_WIDTH / 2, SCREEN_HEIGHT - SHIP_SIZE * 2, MISSILE_SIZE, MISSILE_SIZE, MISSILE_SPEED, 0, 0);
-    init_sprite(&(world->explosion), 0,0, SHIP_SIZE, SHIP_SIZE,0,0,0);
+    init_sprite(&(world->explosion), 0, 0, SHIP_SIZE, SHIP_SIZE, 0, 0, 0);
     init_enemies(world);
 }
 
@@ -81,6 +81,14 @@ int is_game_over(world_t *world)
     return world->gameover;
 }
 
+void play_explosion_sound(world_t *world, int i){
+    world->enemies[i].play_explosion = true;
+    world->explosion.pos_x = world->enemies[i].pos_x;
+    world->explosion.pos_y = world->enemies[i].pos_y;
+    world->explosion.is_visible = 1;
+    world->current_explosion_frame = 0;
+}
+
 void update_single_enemy(world_t *world, int i)
 {
     if (handle_sprites_collision(&world->enemies[i], &world->ship))
@@ -91,18 +99,21 @@ void update_single_enemy(world_t *world, int i)
             set_visible(&world->ship);
         }
         world->lives -= 1;
-        world->play_damage_sfx = true;
+        if (world->lives == 0)
+        {
+            play_explosion_sound(world, i);
+        }
+        else
+        {
+            world->play_damage_sfx = true;
+        }
     }
 
     if (handle_sprites_collision(&world->enemies[i], &world->missile))
     {
         world->enemies_destroyed += 1;
         world->score += 1;
-        world->enemies[i].play_explosion = true;
-        world->explosion.pos_x = world->enemies[i].pos_x;
-        world->explosion.pos_y = world->enemies[i].pos_y;
-        world->explosion.is_visible = 1;
-        world->current_explosion_frame = 0;
+        play_explosion_sound(world, i);
     }
     world->enemies[i].pos_y += world->enemies[i].speed_v;
     if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
@@ -129,7 +140,7 @@ void move_ship(world_t *world)
 
 void missile_limit(world_t *world)
 {
-    if(world->missile.pos_y<0)
+    if (world->missile.pos_y < 0)
     {
         despawn_sprite(&world->missile);
     }
@@ -147,8 +158,9 @@ void update_data(world_t *world)
     // handle_sprites_collision(&world->enemy, &world->missile);
     update_enemies(world);
     compute_game(world);
-    world->current_explosion_frame = (world->current_explosion_frame+1)%(EXPLOSION_FRAMES*EXPLOSION_FRAMETIME);
-    if(world->current_explosion_frame == 0){
+    world->current_explosion_frame = (world->current_explosion_frame + 1) % (EXPLOSION_FRAMES * EXPLOSION_FRAMETIME);
+    if (world->current_explosion_frame == 0)
+    {
         world->explosion.is_visible = 0;
     }
 }
