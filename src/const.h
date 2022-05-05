@@ -47,13 +47,13 @@
  * @brief nombre d'ennemis
  * 
  */
-#define NB_ENEMIES 20
+#define NB_ENEMIES 30
 
 /**
  * @brief distance entre chaque vaisseau ennemi
  * 
  */
-#define VERTICAL_DIST 3*SHIP_SIZE
+#define VERTICAL_DIST 4*SHIP_SIZE
 
 /**
  * @brief temps entre la fin du jeu et la fermeture de l'app

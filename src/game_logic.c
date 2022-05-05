@@ -70,9 +70,12 @@ void clean_data(world_t *world)
 
 void init_enemies(world_t *world)
 {
+    int height;
     for (int i = 0; i < NB_ENEMIES; i++)
     {
-        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - i * VERTICAL_DIST, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 0, 1);
+        // Cette fonction a été designée sur Geogebra pour diminuer l'ecart entre chaque enemi progressivement.
+        height = VERTICAL_DIST * i - pow(i,2)/(NB_ENEMIES/40.);
+        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - height, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 0, 1);
     }
 }
 
