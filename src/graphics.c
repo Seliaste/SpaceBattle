@@ -15,7 +15,7 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     resources->ship = load_image("ressources/spaceship2.bmp", renderer);
     resources->enemy = load_image("ressources/asteroid.bmp", renderer);
     resources->missile = load_image("ressources/missile.bmp", renderer);
-    resources->font = load_font("ressources/edosz.ttf", 200);
+    resources->font = load_font("ressources/edosz.ttf", 32);
     resources->heart = load_image("ressources/heart.bmp", renderer);
     resources->explosion[0] = load_image("ressources/explosion1.bmp", renderer);
     resources->explosion[1] = load_image("ressources/explosion2.bmp", renderer);
@@ -84,7 +84,7 @@ void apply_score_text(SDL_Renderer *renderer, TTF_Font *font, int score)
 {
     char scoretext[64];
     sprintf(scoretext, "Score : %d", score);
-    apply_text(renderer, 0, 0, 100, 40, scoretext, font);
+    apply_text(renderer, 0, 0, 150, 40, scoretext, font);
 }
 
 void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
@@ -105,7 +105,7 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
         sprintf(text, "You won!");
         break;
     }
-    apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 100, 100 / 3, text, font);
+    apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 150, 100 / 3, text, font);
 }
 
 void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx)
