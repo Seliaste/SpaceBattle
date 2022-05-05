@@ -93,19 +93,19 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
     switch (world->gamestate)
     {
     case 0:
-        sprintf(text, "");
+        sprintf(text, " ");
         break;
     case 1:
-        sprintf(text, "Destroyed");
+        sprintf(text, "Destroyed, too bad!");
         break;
     case 3:
-        sprintf(text, "You survived");
+        sprintf(text, "You survived, well done!");
         break;
     case 2:
-        sprintf(text, "You won! try --hard");
+        sprintf(text, "You won! Try --hard");
         break;
     }
-    apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 150, 100 / 3, text, font);
+    apply_text(renderer, SCREEN_WIDTH / 2 - 125, SCREEN_HEIGHT / 2 - 20, 250, 100 / 3, text, font);
 }
 
 void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx)
