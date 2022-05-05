@@ -129,8 +129,6 @@ int main(int argc, char *argv[])
     // initialisation du jeu
     world.hardmode = (argc > 1 && strcmp(argv[1],"--hard") == 0);
     init(&window, &renderer, &resources, &world);
-    
-    printf(world.hardmode?"HARDMODE\n":"PAS HARDMODE\n");
     play_music(&resources);
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini
