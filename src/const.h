@@ -47,7 +47,7 @@
  * @brief nombre d'ennemis
  * 
  */
-#define NB_ENEMIES 30
+#define NB_ENEMIES 10
 
 /**
  * @brief distance entre chaque vaisseau ennemi
@@ -70,5 +70,7 @@
 #define EXPLOSION_FRAMES 5
 
 #define EXPLOSION_FRAMETIME 10
+
+#define HARDMODE_MULTIPLIER 2
 
 #endif

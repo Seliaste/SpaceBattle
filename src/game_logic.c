@@ -71,11 +71,12 @@ void clean_data(world_t *world)
 void init_enemies(world_t *world)
 {
     int height;
+    int speed = (world->hardmode ? HARDMODE_MULTIPLIER : 1) * ENEMY_SPEED;
     for (int i = 0; i < NB_ENEMIES; i++)
     {
         // Cette fonction a été designée sur Geogebra pour diminuer l'ecart entre chaque enemi progressivement.
-        height = VERTICAL_DIST * i - pow(i,2)/(NB_ENEMIES/40.);
-        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - height, SHIP_SIZE, SHIP_SIZE, ENEMY_SPEED, 0, 1);
+        height = VERTICAL_DIST * i - pow(i, 2) / (NB_ENEMIES / 40.);
+        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - height, SHIP_SIZE, SHIP_SIZE, speed, 0, 1);
     }
 }
 
@@ -84,7 +85,8 @@ int is_game_over(world_t *world)
     return world->gameover;
 }
 
-void play_explosion_sound(world_t *world, int i){
+void play_explosion_sound(world_t *world, int i)
+{
     world->enemies[i].play_explosion = true;
     world->explosion.pos_x = world->enemies[i].pos_x;
     world->explosion.pos_y = world->enemies[i].pos_y;

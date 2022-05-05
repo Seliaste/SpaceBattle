@@ -6,12 +6,9 @@
  * \date 18 mars 2020
  */
 
-
 #include "src/graphics.h"
 #include "src/game_logic.h"
 #include <SDL2/SDL_mixer.h>
-
-
 
 /**
  * \brief fonction qui nettoie le jeu: nettoyage de la partie graphique (SDL), nettoyage des resources, nettoyage des données
@@ -29,16 +26,17 @@ void clean(SDL_Window *window, SDL_Renderer *renderer, resources_t *resources, w
     SDL_CloseAudio();
 }
 
-void init_audio(resources_t *resources){
+void init_audio(resources_t *resources)
+{
     // Set up the audio stream
     int result = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 512);
-    if( result < 0 )
+    if (result < 0)
     {
         fprintf(stderr, "Unable to open audio: %s\n", Mix_GetError());
         exit(-1);
     }
     result = Mix_AllocateChannels(4);
-    if( result < 0 )
+    if (result < 0)
     {
         fprintf(stderr, "Unable to allocate mixing channels: %s\n", Mix_GetError());
         exit(-1);
@@ -112,15 +110,15 @@ void handle_events(SDL_Event *event, world_t *world)
 
 void play_music(resources_t *resources)
 {
-    int result = Mix_PlayChannel(-1, resources->music,1);
-    if(result < 0)
+    int result = Mix_PlayChannel(-1, resources->music, 1);
+    if (result < 0)
     {
-        fprintf(stderr, "Could not play music file: %s\n",Mix_GetError());
+        fprintf(stderr, "Could not play music file: %s\n", Mix_GetError());
         exit(-1);
     }
 }
 
-int main(int argc, char *args[])
+int main(int argc, char *argv[])
 {
     SDL_Event event;
     world_t world;
@@ -129,7 +127,10 @@ int main(int argc, char *args[])
     SDL_Window *window;
     srand(time(NULL));
     // initialisation du jeu
+    world.hardmode = (argc > 1 && strcmp(argv[1],"--hard") == 0);
     init(&window, &renderer, &resources, &world);
+    
+    printf(world.hardmode?"HARDMODE\n":"PAS HARDMODE\n");
     play_music(&resources);
     while (!is_game_over(&world))
     { // tant que le jeu n'est pas fini

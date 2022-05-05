@@ -59,6 +59,7 @@ struct world_s
     int exit_time;          // temps avant sortie du programme
     int lives;             //  vies du vaisseau
     bool play_damage_sfx;
+    bool hardmode; //mode difficile (multiplie par HARDMODE_MULTIPLIER le nombre d'ennemis et leur vitesse)
 };
 
 /**

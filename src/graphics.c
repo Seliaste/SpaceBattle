@@ -102,7 +102,7 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
         sprintf(text, "You survived");
         break;
     case 2:
-        sprintf(text, "You won!");
+        sprintf(text, "You won! try --hard");
         break;
     }
     apply_text(renderer, SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 20, 150, 100 / 3, text, font);
