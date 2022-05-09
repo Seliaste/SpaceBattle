@@ -22,7 +22,7 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources, bool hardmod
     resources->explosion[2] = load_image("ressources/explosion3.bmp", renderer);
     resources->explosion[3] = load_image("ressources/explosion4.bmp", renderer);
     resources->explosion[4] = load_image("ressources/explosion5.bmp", renderer);
-    resources->music = Mix_LoadWAV("ressources/easymusic.wav");
+    resources->music = Mix_LoadWAV(hardmode?"ressources/musichard.wav":"ressources/music.wav");
     if(resources->music == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
@@ -39,11 +39,6 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources, bool hardmod
     }
     resources->damage_sfx = Mix_LoadWAV("ressources/damage.wav");
     if(resources->damage_sfx == NULL)
-    {
-        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
-    }
-    resources->hardmusic = Mix_LoadWAV("ressources/hardmusic.wav");
-    if(resources->hardmusic == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }
