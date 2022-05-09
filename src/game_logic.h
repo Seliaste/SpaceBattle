@@ -143,7 +143,7 @@ int is_game_over(world_t *world);
  * @param world 
  * @param i 
  */
-void play_explosion_sound(world_t *world, int i)
+void play_explosion_sound(world_t *world, int i);
 
 /**
  * @brief Met à jour les données et la position d'un seul ennemi
@@ -178,7 +178,7 @@ void move_ship(world_t *world);
  * 
  * @param world 
  */
-void missile_limit(world_t *world)
+void missile_limit(world_t *world);
 
 /**
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse
