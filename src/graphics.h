@@ -90,7 +90,7 @@ void apply_explosion(SDL_Renderer *renderer, resources_t *resources, sprite_t *s
  * @param font 
  * @param score 
  */
-void apply_score_text(SDL_Renderer *renderer, TTF_Font *font, int score)
+void apply_score_text(SDL_Renderer *renderer, TTF_Font *font, int score);
 /**
  * @brief affiche l'un des messages de fin
  * 
@@ -98,7 +98,7 @@ void apply_score_text(SDL_Renderer *renderer, TTF_Font *font, int score)
  * @param font 
  * @param world 
  */
-void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
+void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world);
 /**
  * @brief affiche les vies disponibles
  * 
@@ -107,7 +107,7 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
  * @param world 
  * @param damage_sfx 
  */
-void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx)
+void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx);
 /**
  * \brief La fonction rafraichit l'écran en fonction de l'état des données du monde
  * \param renderer la surface de l'écran de jeu
