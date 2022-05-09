@@ -123,6 +123,11 @@ void init_data(world_t *world);
  */
 void clean_data(world_t *world);
 
+/**
+ * @brief Fonction qui initialise les données des ennemis
+ * 
+ * @param world 
+ */
 void init_enemies(world_t *world);
 
 /**
@@ -131,6 +136,14 @@ void init_enemies(world_t *world);
  * \return 1 si le jeu est fini, 0 sinon
  */
 int is_game_over(world_t *world);
+
+/**
+ * @brief Attache le flag de son d'explosion à jouer à l'ennemi i
+ * 
+ * @param world 
+ * @param i 
+ */
+void play_explosion_sound(world_t *world, int i)
 
 /**
  * @brief Met à jour les données et la position d'un seul ennemi
@@ -154,11 +167,25 @@ void update_enemies(world_t *world);
 void update_data(world_t *world);
 
 /**
+ * @brief Fonction qui applique la vélocité du vaisseau
+ * 
+ * @param world 
+ */
+void move_ship(world_t *world);
+
+/**
+ * @brief Fonction qui fait despawn le missile lorsqu'il sort de l'écran
+ * 
+ * @param world 
+ */
+void missile_limit(world_t *world)
+
+/**
  * @brief replace l'ennemi au sommet de l'écran s'il dépasse
  *
  * @param world
  */
-void enemy_limit(world_t *world);
+// void enemy_limit(world_t *world);
 
 /**
  * @brief replace le vaisseau s'il dépasse la limite
