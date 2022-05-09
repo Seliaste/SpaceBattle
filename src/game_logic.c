@@ -71,13 +71,17 @@ void clean_data(world_t *world)
 void init_enemies(world_t *world)
 {
     int height;
+    int deviation;
+    int horizontal;
     int speed = (world->hardmode ? HARDMODE_MULTIPLIER : 1) * ENEMY_SPEED;
     for (int i = 0; i < NB_ENEMIES; i++)
     {
         // Cette fonction a été designée sur Geogebra pour diminuer l'ecart entre chaque enemi progressivement.
         // Elle n'a aucune autre justification mathématique que nous aimions la courbe :)
-        height = VERTICAL_DIST * i - pow(i,2)/(NB_ENEMIES/40.);
-        init_sprite(&world->enemies[i], generate_number(SHIP_SIZE / 2, SCREEN_WIDTH - SHIP_SIZE / 2), -SHIP_SIZE / 2 - height, SHIP_SIZE, SHIP_SIZE, speed, 0, 1);
+        height = VERTICAL_DIST * i - pow(i, 2) / (NB_ENEMIES / 40.);
+        deviation = (SCREEN_WIDTH/2)*((float)(i+1)/NB_ENEMIES);
+        horizontal = generate_number(SCREEN_WIDTH/2 - deviation, SCREEN_WIDTH/2 + deviation);
+        init_sprite(&world->enemies[i], horizontal , -SHIP_SIZE / 2 - height, SHIP_SIZE, SHIP_SIZE, speed, 0, 1);
     }
 }
 

@@ -9,9 +9,9 @@ void clean_resources(resources_t *resources)
     clean_font(resources->font);
 }
 
-void init_resources(SDL_Renderer *renderer, resources_t *resources)
+void init_resources(SDL_Renderer *renderer, resources_t *resources, bool hardmode)
 {
-    resources->background = load_image("ressources/background2.bmp", renderer);
+    resources->background = load_image(hardmode?"ressources/hardspace.bmp":"ressources/background2.bmp", renderer);
     resources->ship = load_image("ressources/spaceship2.bmp", renderer);
     resources->enemy = load_image("ressources/asteroid.bmp", renderer);
     resources->missile = load_image("ressources/missile.bmp", renderer);
@@ -22,7 +22,7 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     resources->explosion[2] = load_image("ressources/explosion3.bmp", renderer);
     resources->explosion[3] = load_image("ressources/explosion4.bmp", renderer);
     resources->explosion[4] = load_image("ressources/explosion5.bmp", renderer);
-    resources->music = Mix_LoadWAV("ressources/music.wav");
+    resources->music = Mix_LoadWAV("ressources/easymusic.wav");
     if(resources->music == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
@@ -39,6 +39,11 @@ void init_resources(SDL_Renderer *renderer, resources_t *resources)
     }
     resources->damage_sfx = Mix_LoadWAV("ressources/damage.wav");
     if(resources->damage_sfx == NULL)
+    {
+        fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
+    }
+    resources->hardmusic = Mix_LoadWAV("ressources/hardmusic.wav");
+    if(resources->hardmusic == NULL)
     {
         fprintf(stderr, "Could not load music file: %s\n",Mix_GetError());
     }

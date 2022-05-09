@@ -56,7 +56,7 @@ void init(SDL_Window **window, SDL_Renderer **renderer, resources_t *resources, 
     init_data(world);
     init_ttf();
     init_audio(resources);
-    init_resources(*renderer, resources);
+    init_resources(*renderer, resources, world->hardmode);
 }
 
 /**

@@ -24,6 +24,7 @@ struct resources_s
     SDL_Texture *heart;
     TTF_Font *font;
     Mix_Chunk *music;
+    Mix_Chunk *hardmusic;
     Mix_Chunk *explosion_sfx;
     Mix_Chunk *damage_sfx;
     SDL_Texture *explosion[EXPLOSION_FRAMES];
@@ -46,7 +47,7 @@ void clean_resources(resources_t *resources);
  * \param screen la surface correspondant à l'écran de jeu
  * \param resources les ressources du jeu
  */
-void init_resources(SDL_Renderer *renderer, resources_t *resources);
+void init_resources(SDL_Renderer *renderer, resources_t *resources, bool hardmode);
 
 /**
  * \brief La fonction applique la texture du fond sur le renderer lié à l'écran de jeu
