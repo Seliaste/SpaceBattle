@@ -59,7 +59,7 @@ struct world_s
     int exit_time;          // temps avant sortie du programme
     int lives;             //  vies du vaisseau
     bool play_damage_sfx;
-    bool hardmode; //mode difficile (multiplie par HARDMODE_MULTIPLIER le nombre d'ennemis et leur vitesse)
+    bool hardmode; //mode difficile (multiplie par HARDMODE_MULTIPLIER la vitesse des ennemis)
 };
 
 /**
@@ -143,7 +143,7 @@ int is_game_over(world_t *world);
  * @param world 
  * @param i 
  */
-void play_explosion_sound(world_t *world, int i);
+void play_explosion(world_t *world, int i);
 
 /**
  * @brief Met à jour les données et la position d'un seul ennemi

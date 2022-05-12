@@ -90,18 +90,18 @@ int is_game_over(world_t *world)
     return world->gameover;
 }
 
-void play_explosion_sound(world_t *world, int i)
+void play_explosion(world_t *world, int i)
 {
-    world->enemies[i].play_explosion = true;
-    world->explosion.pos_x = world->enemies[i].pos_x;
-    world->explosion.pos_y = world->enemies[i].pos_y;
+    world->enemies[i].play_explosion = true;        //mise du flag pour le son d'explosion
+    world->explosion.pos_x = world->enemies[i].pos_x;   
+    world->explosion.pos_y = world->enemies[i].pos_y;   //positionne le sprite d'explosion sur l'ennemi
     world->explosion.is_visible = 1;
-    world->current_explosion_frame = 0;
+    world->current_explosion_frame = 0; 
 }
 
 void update_single_enemy(world_t *world, int i)
 {
-    if (handle_sprites_collision(&world->enemies[i], &world->ship))
+    if (handle_sprites_collision(&world->enemies[i], &world->ship))  //collision ennemi/vaisseau du joueur
     {
         world->enemies_destroyed += 1;
         if (world->lives > 1)
@@ -111,7 +111,7 @@ void update_single_enemy(world_t *world, int i)
         world->lives -= 1;
         if (world->lives == 0)
         {
-            play_explosion_sound(world, i);
+            play_explosion(world, i); //joue le son d'explosion lorsque le vaisseau du joueur est detruit
         }
         else
         {
@@ -119,14 +119,14 @@ void update_single_enemy(world_t *world, int i)
         }
     }
 
-    if (handle_sprites_collision(&world->enemies[i], &world->missile))
+    if (handle_sprites_collision(&world->enemies[i], &world->missile)) //collision missile/ennemi
     {
         world->enemies_destroyed += 1;
         world->score += 1;
-        play_explosion_sound(world, i);
+        play_explosion(world, i);
     }
     world->enemies[i].pos_y += world->enemies[i].speed_v;
-    if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible)
+    if (world->enemies[i].pos_y > SCREEN_HEIGHT + SHIP_SIZE / 2 && world->enemies[i].is_visible) //lorsqu'un ennemi atteint le bas de l'écran
     {
         world->enemies_passed += 1;
         world->enemies[i].speed_v = 0;
@@ -145,7 +145,7 @@ void update_enemies(world_t *world)
 
 void move_ship(world_t *world)
 {
-    world->ship.pos_x += world->ship.speed_h;
+    world->ship.pos_x += world->ship.speed_h;   //change la vitesse horizontale du vaisseau et rend son déplacement plus fluide
 }
 
 void missile_limit(world_t *world)
@@ -168,7 +168,7 @@ void update_data(world_t *world)
     // handle_sprites_collision(&world->enemy, &world->missile);
     update_enemies(world);
     compute_game(world);
-    world->current_explosion_frame = (world->current_explosion_frame + 1) % (EXPLOSION_FRAMES * EXPLOSION_FRAMETIME);
+    world->current_explosion_frame = (world->current_explosion_frame + 1) % (EXPLOSION_FRAMES * EXPLOSION_FRAMETIME); //passe à la frame suivante de l'explosion après un certain temps
     if (world->current_explosion_frame == 0)
     {
         world->explosion.is_visible = 0;
@@ -205,7 +205,7 @@ int handle_sprites_collision(sprite_t *sp1, sprite_t *sp2)
     if (sprite_collide(sp1, sp2) && sp1->is_visible && sp2->is_visible)
     {
         despawn_sprite(sp1);
-        despawn_sprite(sp2);
+        despawn_sprite(sp2); //rend les deux sprites invisibles si ils sont en collision
         return 1;
     }
     return 0;

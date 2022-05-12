@@ -110,12 +110,12 @@ void apply_endgame_text(SDL_Renderer *renderer, TTF_Font *font, world_t *world)
 
 void apply_lifebar(SDL_Renderer *renderer, SDL_Texture *heart, world_t *world, Mix_Chunk *damage_sfx)
 {
-    for (int i = 0; i < world->lives; i++)
+    for (int i = 0; i < world->lives; i++) 
     {
-        apply_texture(heart, renderer, 4 + i * 36, SCREEN_HEIGHT - 36);
+        apply_texture(heart, renderer, 4 + i * 36, SCREEN_HEIGHT - 36); //affiche un nombre de coeurs égal au nombre de vies 
         
     }
-    if (world->play_damage_sfx){
+    if (world->play_damage_sfx){ //joue un son lorsque le vaisseau prend des dégats (en étant touché par un ennemi)
         world->play_damage_sfx = false;
         Mix_PlayChannel(-1,damage_sfx,0);
     }
