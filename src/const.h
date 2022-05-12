@@ -43,7 +43,7 @@
  * @brief nombre d'ennemis
  *
  */
-#define NB_ENEMIES 50
+#define NB_ENEMIES 10
 
 /**
  * @brief distance entre chaque vaisseau ennemi
