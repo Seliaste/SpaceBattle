@@ -8,5 +8,5 @@ Aéna Aria (Seliaste)
 Thomas Wieczorek
 
 Music:
-Easy mode music : [https://www.youtube.com/watch?v=VcC9WyFlj4A](Nu Slumber by Kaizo Slumber)
-Hard mode music : [https://youtu.be/o90HH9BKAFU](Nullsec by Seliaste)
+Easy mode music : [Nu Slumber by Kaizo Slumber](https://www.youtube.com/watch?v=VcC9WyFlj4A)
+Hard mode music : [Nullsec by Seliaste](https://youtu.be/o90HH9BKAFU)
